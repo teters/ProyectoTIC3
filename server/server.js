@@ -1,9 +1,17 @@
 const express = require('express');
+const usuariosRoutes = require('./scr/usuarios/routes');
 const app = express();
 const port = process.env.PORT || 300;
 
 // Importa el controlador de tareas
 const taskController = require('./controllers/taskController');
+
+app.use(express.json()); // para que se puedan hacer puts y gets de jsons
+app.use('/api/usuarios', usuariosRoutes); //
+
+app.get("/api", (req,res) =>{
+  res.json({"users": ["usuario1", "usuario2", "usuario3"]})
+})
 
 // Middleware para permitir el uso de JSON en las solicitudes
 app.use(express.json());
