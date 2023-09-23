@@ -3,6 +3,7 @@ const usuariosRoutes = require('./scr/usuarios/routes');
 const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 300;
+const controller = require('./scr/usuarios/controllers')
 
 // Importa el controlador de tareas
 const taskController = require('./controllers/taskController');
@@ -20,6 +21,8 @@ app.post("/api/login", (req, res) => {
 
   // Aquí puedes realizar la autenticación del usuario y responder en consecuencia
   // Por ejemplo, verificar las credenciales y devolver un token de acceso si son válidas.
+
+  controller.verificarMail(email);
 
   if (email === "ejemplo2@email.com" && password === "contrasena123") {
     res.status(200).json({ message: "Inicio de sesión exitoso" });
