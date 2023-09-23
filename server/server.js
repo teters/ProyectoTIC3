@@ -22,7 +22,14 @@ app.post("/api/login", (req, res) => {
   // Aquí puedes realizar la autenticación del usuario y responder en consecuencia
   // Por ejemplo, verificar las credenciales y devolver un token de acceso si son válidas.
 
-  controller.verificarMail(email);
+  const resultado = controller.verificarMail(email);
+  console.log("Valor resultado:")
+  console.log(resultado);
+  if(resultado.length === 0 ){
+    console.log("No tenes mail")
+  }
+
+
 
   if (email === "ejemplo2@email.com" && password === "contrasena123") {
     res.status(200).json({ message: "Inicio de sesión exitoso" });

@@ -19,14 +19,15 @@ const verificarMail  = (req, res) => {
             console.error("Error en la consulta", error);
             return res.status(500).json({error: "Error en la consulta"});
         }
-        res.status(200).json(results.rows);
         console.log("Resultado de verificarMail: ");
         console.log(results.rows);
+        res = results;
     } )
+    return res;
 }
 
 const  verificarMailContrasena = (req,res)=>{
-    pool.query("SELECT * FROM prueba.usuarios WHERE mail_usuario = $1 AND contraseña_usuario = $2", req.body.email, req.body.password, (error,results)=>{
+    pool.query("SELECT * FROM prueba.usuarios WHERE mail_usuario = $1 AND contraseña_usuario = $2", [emial,password], (error,results)=>{
         if(error){
             console.error("Error en la consulta", error);
             return res.status(500).json({error:"Error en la consulta"});
