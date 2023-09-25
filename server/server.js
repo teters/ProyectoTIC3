@@ -22,6 +22,15 @@ app.post("/api/login", (req, res) => {
   controller.inicioDeSecion(email,password);
 });
 
+
+app.post("/registro", async (req, res) => {
+  const {email, nombre, cedula, fechaNacimiento, password } = req.body;
+  registrarUsuarios(email, nombre, cedula, fechaNacimiento, password);
+});
+
+
+
+
 // Middleware para permitir el uso de JSON en las solicitudes
 app.use(express.json());
 
