@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import InterfazLogin from "./InterfazLogin";
+import InterfazLogin from "./interfaces/InterfazLogin";
+import { BrowserRouter as Router, Route,Routes, BrowserRouter} from "react-router-dom";
+import SignUp from "./interfaces/SignUp";
 
 function App() {
   // Define estados locales para el correo electrónico y la contraseña
@@ -35,18 +37,28 @@ function App() {
       // Maneja errores si la respuesta no es exitosa
     }
   };
+  
+
 
   return (
-    <div className="App">
-      <h1>Aplicación de Inicio de Sesión</h1>
-      <InterfazLogin
-        email={email}
-        password={password}
-        onEmailChange={handleEmailChange}
-        onPasswordChange={handlePasswordChange}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    //<BrowserRouter>
+      <Router>
+        <div className="App">
+          <InterfazLogin
+            email={email}
+            password={password}
+            onEmailChange={handleEmailChange}
+            onPasswordChange={handlePasswordChange}
+            onSubmit={handleSubmit}
+          />
+          <Routes>
+            <Route path="/" exact component={InterfazLogin} />
+            <Route path="/signup" component={SignUp} />
+          </Routes>
+        </div>
+      </Router>
+    //</BrowserRouter>
+        
   );
   /*const [backendData, setbackEndData] = useState([{}])
     useEffect(()=>{
