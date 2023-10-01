@@ -38,26 +38,27 @@ function App() {
     }
   };
   
+  
+  
 
 
   return (
-    //<BrowserRouter>
-      <Router>
-        <div className="App">
-          <InterfazLogin
-            email={email}
-            password={password}
-            onEmailChange={handleEmailChange}
-            onPasswordChange={handlePasswordChange}
-            onSubmit={handleSubmit}
-          />
-          <Routes>
-            <Route path="/" exact component={InterfazLogin} />
-            <Route path="/signup" component={SignUp} />
-          </Routes>
-        </div>
-      </Router>
-    //</BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<InterfazLogin
+                      email={email}
+                      password={password}
+                      onEmailChange={handleEmailChange}
+                      onPasswordChange={handlePasswordChange}
+                      onSubmit={handleSubmit}
+              />}/>
+        <Route exact path="/signup" element={<SignUp
+                      
+
+              />}/>
+
+      </Routes>
+    </BrowserRouter>
         
   );
   /*const [backendData, setbackEndData] = useState([{}])

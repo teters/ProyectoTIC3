@@ -1,14 +1,16 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./styles/styless.css";
 
+
 function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSubmit }) {
+  
   return (
     <div className= 'login-background d-flex justify-content-center align-items-center 100-w vh-100 '>
       <div className='login-box p-5 rounded bg-white'>
-      
+      <h1 class="text-left mb-4"> Log in</h1>
         <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -44,7 +46,8 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
             Submit
           </Button>
           <Link to="/signup">
-            <button type="button" class="btn btn-link">Sign Up</button>
+            <button type="button" class="btn btn-link" >Sign Up</button>
+            
           </Link>
         </Form>
         
