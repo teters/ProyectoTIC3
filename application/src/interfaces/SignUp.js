@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+
 function SignUp() {
-  const [nombre, setNombre] = useState("");
+  //const [nombre, setNombre] = useState("");
+  const [usuario, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
@@ -20,7 +22,7 @@ function SignUp() {
     setFoto(file);
   };
   
-
+  
   // Manejar cambios en el campo de contraseña
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -35,20 +37,31 @@ function SignUp() {
     setCedula(e.target.value);
   };
   
-  const registrarse = async () => {
+  const registrarse = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({email, usuario, cedula, fechaNacimiento, password}),
+    });
 
 
   };
  
   
   return (
+
+    
       <Form onSubmit={registrarse}>
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Name</Form.Label>
           <Form.Control
               type="name"
               placeholder="Enter name and surname"
-              value={nombre}
+              value={usuario}
               onChange={handleNameChange}
             />
             
@@ -106,7 +119,12 @@ function SignUp() {
             Submit
           </Button>
         </Form>
-    
+
+      
+        
+      
+   
+  
   );
 }
 

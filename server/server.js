@@ -4,18 +4,19 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 300;
 const controller = require('./scr/usuarios/controllersIniciarSecion')
-
+const controllerRegistro = require('./scr/usuarios/controllersRegistro')
 // Importa el controlador de tareas
 const taskController = require('./controllers/taskController');
 
 app.use(express.json()); // para que se puedan hacer puts y gets de jsons
 app.use('/api/usuarios', usuariosRoutes); //
 
+
 app.get("/api", (req,res) =>{
   res.json({"users": ["usuario1", "usuario2", "usuario3"]})
 })
-
 app.use(bodyParser.json());
+
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -23,9 +24,11 @@ app.post("/api/login", (req, res) => {
 });
 
 
-app.post("/registro", async (req, res) => {
-  const {email, nombre, cedula, fechaNacimiento, password } = req.body;
-  registrarUsuarios(email, nombre, cedula, fechaNacimiento, password);
+
+app.post("/signup", async (req, res) => {
+  const {email, usuario, cedula, fechaNacimiento, password } = req.body;
+  
+  controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
 });
 
 
