@@ -20,7 +20,16 @@ app.use(bodyParser.json());
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
 
-  controller.inicioDeSecion(email,password);
+  let resultadoInicioSecion = controller.inicioDeSecion(email,password);
+  if(resultadoInicioSecion === "el mail no esta registrado"){
+    return res.status(400).json({message: "El mail no esta registrado"});
+  }
+  else if(resultadoInicioSecion === "contraseña incorrecta"){
+    return res.status(400).json({message: "La contraseña es incorrecta"});
+  }
+  else if(resultadoInicioSecion === "todo bien"){
+    return res.status(200).json({message: "Todo bien"})
+  }
 });
 
 
@@ -29,9 +38,9 @@ app.post("/signup", async (req, res) => {
   
   let resultadoRegistro = controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
   
-  console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+  console.log("resultadoRegistro:", resultadoRegistro);
   if (resultadoRegistro === "Registro existoso" ){
-    //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+    console.log("resultadoRegistro dentro de if:", resultadoRegistro);
     return res.status(200).json({message: "Registro existoso"});
   }
   else if (resultadoRegistro === "Debes tener al menos 18 años para registrarte."){

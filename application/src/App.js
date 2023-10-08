@@ -36,11 +36,16 @@ function App() {
       body: JSON.stringify({ email, password }),
     });
 
-    if (response.ok) {
+    const data = await response.json();
+
+    if (response.status === 200) {
       setInicio(true);
+      // En data esta el mensaje
       // Procesa la respuesta del servidor si es exitosa
     } else {
+      // En data esta el error
       // Maneja errores si la respuesta no es exitosa
+
     }
   };
   
