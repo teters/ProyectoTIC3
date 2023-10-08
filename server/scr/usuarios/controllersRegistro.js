@@ -14,11 +14,13 @@ const express = require('express');
 
 
 
-const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password) => {
-
+let registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password) => {
+  let devolucion = "";
   // Verificar que ninguno de los datos sea nulo o indefinido
   if (!email || !usuario || !cedula || !fechaNacimiento || !password) {
+    
     return console.error("Todos los campos son obligatorios");
+    
   
   }
 
@@ -54,8 +56,9 @@ const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, passwo
     console.log(edad);
 
     if (edad < 18) {
-      return console.log('Debes tener al menos 18 años para registrarte.');
-      
+      console.log('Debes tener al menos 18 años para registrarte.');
+      devolucion = "Debes tener al menos 18 años para registrarte.";
+      return devolucion;
     }
 
     /*const fotoCedula64 = Buffer.from(fotoCedula, 'base64');
@@ -64,10 +67,15 @@ const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, passwo
     } */
 
     // Insertar el nuevo usuario en la base de datos
+
     const insertQuery = 'INSERT INTO usuarios (mail_usuario, nombre_usuario, id_usuario, fecha_nacimiento, contraseña_usuario) VALUES ($1, $2, $3, $4, $5)';
     pool.query(insertQuery, [email, usuario, cedula, fechaNacimiento, password]);
 
+    
     console.log('Usuario registrado exitosamente.');
+    devolucion = "Registro existoso";
+
+    return devolucion;
   }
 
 
