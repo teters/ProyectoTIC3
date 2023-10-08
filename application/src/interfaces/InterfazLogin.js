@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./styles/styless.css";
 
 
-function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSubmit }) {
+function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSubmit,inicio }) {
   
   return (
     <div className= 'login-background d-flex justify-content-center align-items-center 100-w vh-100 '>
@@ -42,14 +42,16 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
               </label>
           </div>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" class="btn btn-primary" type="submit">
             Submit
+            
           </Button>
           <Link to="/signup">
             <button type="button" class="btn btn-link" >Sign Up</button>
             
           </Link>
         </Form>
+        
         
       </div>
     </div>    
