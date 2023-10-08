@@ -1,0 +1,28 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg,  #04040e, #151582);
+    padding: 20px 20px 200px;
+    align-items: center;
+}
+
+.home p {
+    padding: 30px;
+    color: #f1f1f1
+}
+
+.pruebaImage{
+    width: 500px;
+    height: 350px;
+    align-items:baseline;
+}
+
+.callToAction{
+    border: 1px solid #2e518b; /*anchura, estilo y color borde*/
+    padding: 20px; /*espacio alrededor texto*/
+    background-color: #2e518b; /*color botón*/
+    color: #ffffff; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    text-transform: uppercase; /*capitalización texto*/
+    border-radius: 50px; /*bordes redondos*/
+}

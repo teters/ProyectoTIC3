@@ -1,0 +1,67 @@
+.navbar{
+    display: flex;
+    height: 50px;
+    width: 100%;
+    position:fixed;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #04040e;
+}
+.navOpen{
+    display: flex;
+    position:absolute;
+    height: 25%;
+    width: 100%;
+    background-color: #141540;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+
+}
+.navLink{
+   display: flex;
+   font-size: 1em;
+   font-weight: 300;
+   color: #f1f1f1;
+}
+.logo{
+    display: flex;
+    color: #f1f1f1; 
+    font-weight: 600;
+}
+
+@media (min-width: 800px) {
+    .logo{
+        font-size: 1.5em;;
+    }
+    .navbar {
+        align-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 50px;
+    }
+    .linksContainer {
+        display: flex;
+        width: 50%;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .navLink {
+        padding-top: 4px;
+        font-size: 1.4em;
+    }
+    .navOnScroll {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #04040e;
+        
+    }
+}
+
+.navOnScroll {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #04040e;
+}

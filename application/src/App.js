@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import InterfazLogin from "./interfaces/InterfazLogin";
-import Inicio from "./interfaces/Inicio";
+import Inicio from "./Init";
 import { BrowserRouter as Router, Route,Routes, BrowserRouter} from "react-router-dom";
 import SignUp from "./interfaces/SignUp";
 import Alert from "react-bootstrap/Alert";
 import { Redirect } from "react-router-dom";
+import Home from './screens/Home';
+import MiPerfil from './screens/MiPerfil';
+import SobreNosotros from './screens/SobreNosotros';
+import Contacto from './screens/Contacto';
+import Navbar from './Components/Navbar';
 
 function App() {
   // Define estados locales para el correo electrónico y la contraseña
