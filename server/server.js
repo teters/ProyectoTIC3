@@ -24,11 +24,21 @@ app.post("/api/login", (req, res) => {
 });
 
 
-
 app.post("/signup", async (req, res) => {
   const {email, usuario, cedula, fechaNacimiento, password } = req.body;
   
-  controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
+  let resultadoRegistro = controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
+  
+  console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+  if (resultadoRegistro === "Registro existoso" ){
+    //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+    return res.status(200).json({message: "Registro existoso"});
+  }
+  else if (resultadoRegistro === "Debes tener al menos 18 años para registrarte."){
+    //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+    return res.status(400).json({message: "Debes tener al menos 18 años para registrarte."});
+  }
+  
 });
 
 

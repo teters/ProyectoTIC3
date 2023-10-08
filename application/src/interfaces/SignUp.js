@@ -12,6 +12,7 @@ function SignUp() {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [cedula, setCedula] = useState("");
   const [foto, setFoto] = useState(null);
+  const [mensajeRegistro, setMensajeRegistro] = useState(null); // Estado para el mensaje de registro
   
   // Manejar cambios en el campo de correo electrónico
   const handleEmailChange = (e) => {
@@ -39,6 +40,7 @@ function SignUp() {
   
   const registrarse = async (e) => {
     e.preventDefault();
+    
 
     const response = await fetch("/signup", {
       method: "POST",
@@ -47,13 +49,31 @@ function SignUp() {
       },
       body: JSON.stringify({email, usuario, cedula, fechaNacimiento, password}),
     });
-
+    
+   
+    //console.log("Se imprime bien");
+    //console.log("Registro correto", data.message);
+    const data = await response.json(); 
+    
+    if(response.status === 200){
+      setMensajeRegistro({ type: "success", message: data.message });
+    } else {
+      setMensajeRegistro({ type: "error", message: data.message });
+    }
 
   };
  
   
   return (
 
+      
+      <div>
+      {mensajeRegistro && (
+        <div className={mensajeRegistro.type}>
+          {mensajeRegistro.message}
+        </div>
+      )}
+        
     
       <Form onSubmit={registrarse}>
         <Form.Group className="mb-3" controlId="formName">
@@ -118,10 +138,11 @@ function SignUp() {
           <Button variant="primary" type="submit">
             Submit
           </Button>
+
         </Form>
 
       
-        
+        </div>
       
    
   
