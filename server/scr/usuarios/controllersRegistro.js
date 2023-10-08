@@ -14,14 +14,15 @@ const express = require('express');
 
 
 
-let registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password) => {
+const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password) => {
   let devolucion = "";
   // Verificar que ninguno de los datos sea nulo o indefinido
   if (!email || !usuario || !cedula || !fechaNacimiento || !password) {
     
-    return console.error("Todos los campos son obligatorios");
+    console.error("Todos los campos son obligatorios");
+    devolucion = "Todos los campos son obligatorios";
+    return devolucion;
     
-  
   }
 
   else{
@@ -34,19 +35,27 @@ let registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password
     const emailExists = emailResult.rows[0].count > 0;
 
     if (emailExists) {
-      return console.log('El correo electrónico ya está registrado.');
+      console.log("El correo electrónico ya está registrado.");
+      devolucion = "El correo electrónico ya está registrado.";
+      return devolucion;
+
     }
 
     // Validar que la cédula sea un número de 8 caracteres y que no este registrada
     const ciQUery = 'SELECT COUNT(*) FROM usuarios WHERE id_usuario = $1'
     const ciResult = await pool.query(ciQUery, [cedula]);
     const ciExists = ciResult.rows[0].count > 0;
+    
     if (ciExists) {
-      return console.log('Esa cédula ya fue registrada');
+      console.log("Esa cédula ya fue registrada");
+      devolucion = "Esa cédula ya fue registrada";
+      return devolucion;
     }
 
     if (!/^\d{8}$/.test(cedula)) {
-      return console.log('La cédula debe contener exactamente 8 dígitos.');
+      console.log("La cédula debe contener exactamente 8 dígitos.");
+      devolucion = "La cédula debe contener exactamente 8 dígitos.";
+      return devolucion;
     }
 
     // Verificación de edad (más de 18 años)
@@ -74,8 +83,8 @@ let registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password
     
     console.log('Usuario registrado exitosamente.');
     devolucion = "Registro existoso";
-
-    return devolucion;
+    const dev = devolucion;
+    return dev;
   }
 
 

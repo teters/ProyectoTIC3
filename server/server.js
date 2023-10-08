@@ -36,13 +36,30 @@ app.post("/api/login", (req, res) => {
 app.post("/signup", async (req, res) => {
   const {email, usuario, cedula, fechaNacimiento, password } = req.body;
   
-  let resultadoRegistro = controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
+  const resultadoRegistro = await controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
   
-  console.log("resultadoRegistro:", resultadoRegistro);
+
   if (resultadoRegistro === "Registro existoso" ){
-    console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+    console.log("resultadoRegistro:", resultadoRegistro);
     return res.status(200).json({message: "Registro existoso"});
   }
+
+  else if(resultadoRegistro === "Todos los campos son obligatorios"){
+    return  res.status(400).json({message: "Todos los campos son obligatorios"});
+  }
+
+  else if(resultadoRegistro === "El correo electrónico ya está registrado."){
+    return res.status(400).json({message:"El correo electrónico ya está registrado."});
+  }
+
+  else if(resultadoRegistro === "Esa cédula ya fue registrada"){
+    return res.status(400).json({message:"Esa cédula ya fue registrada"});
+  }
+
+  else if ( resultadoRegistro === "La cédula debe contener exactamente 8 dígitos."){
+    return res.status(400).json({message:"La cédula debe contener exactamente 8 dígitos."});
+  }
+
   else if (resultadoRegistro === "Debes tener al menos 18 años para registrarte."){
     //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
     return res.status(400).json({message: "Debes tener al menos 18 años para registrarte."});
