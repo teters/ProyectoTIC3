@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import InterfazLogin from "./interfaces/InterfazLogin";
+import Inicio from "./interfaces/Inicio";
 import { BrowserRouter as Router, Route,Routes, BrowserRouter} from "react-router-dom";
 import SignUp from "./interfaces/SignUp";
+import Alert from "react-bootstrap/Alert";
+import { Redirect } from "react-router-dom";
 
 function App() {
   // Define estados locales para el correo electrónico y la contraseña
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [inicio,setInicio]=useState(true);
 
   // Manejar cambios en el campo de correo electrónico
   const handleEmailChange = (e) => {
@@ -22,7 +26,8 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
-
+    
+    window.location.href = "/inicio";
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -32,6 +37,7 @@ function App() {
     });
 
     if (response.ok) {
+      setInicio(true);
       // Procesa la respuesta del servidor si es exitosa
     } else {
       // Maneja errores si la respuesta no es exitosa
@@ -50,11 +56,13 @@ function App() {
                       onEmailChange={handleEmailChange}
                       onPasswordChange={handlePasswordChange}
                       onSubmit={handleSubmit}
+                      inicio={inicio}
               />}/>
         <Route exact path="/signup" element={<SignUp
                       
 
               />}/>
+        <Route exact path="/inicio" element={<Inicio/>}/>
 
       </Routes>
     </BrowserRouter>
