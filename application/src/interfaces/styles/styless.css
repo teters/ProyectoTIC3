@@ -13,3 +13,31 @@
 .login-background{
   background-image: url('fondoL2.jpg'); /* Ruta a tu imagen de edificios */
 }
+.registrarse {
+  width: 90%; /* Aumenta el ancho del contenedor al 90% del tamaño de la ventana */
+  height: 90vh; /* Aumenta la altura del contenedor al 90% de la altura de la ventana */
+  padding: 30px; /* Relleno interno, puedes ajustarlo según tus necesidades */
+  border: 1px solid #ccc; /* Borde */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  margin: 0 auto; /* Centrar horizontalmente */
+  position: relative;
+   /* Ruta a tu imagen de edificios */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom center; /* Coloca la marca de agua en la parte superior e inferior */
+}
+
+
+
+/* Estilo para el botón fuera del contenedor */
+
+
+
+
+
+
+
+
+
+
+

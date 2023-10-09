@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import "./styles/styless.css";
 
 
 function SignUp() {
@@ -54,71 +56,79 @@ function SignUp() {
   
   return (
 
-    
-      <Form onSubmit={registrarse}>
-        <Form.Group className="mb-3" controlId="formName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-              type="name"
-              placeholder="Enter name and surname"
-              value={usuario}
-              onChange={handleNameChange}
+      <div className='login-background d-flex justify-content-center align-items-center 50-w vh-100'>
+        <div className='registrarse p-5 rounded bg-white'>
+          <Form onSubmit={registrarse}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                  type="name"
+                  placeholder="Enter name and surname"
+                  value={usuario}
+                  onChange={handleNameChange}
+                />
+                
+              </Form.Group>
+            <Form.Group className="mb-3" controlId="formCedula">
+            <Form.Label>ID</Form.Label>
+            <Form.Control
+                type="cedula"
+                placeholder="Enter ID"
+                value={cedula}
+                onChange={handleCedulaChange}
+                />
+              </Form.Group>
+          <Form.Group className="mb-3" controlId="formFoto">
+            <Form.Label>Foto cedula</Form.Label>
+            <Form.Control
+              type="file"
+              accept="image/*" // Limitar a archivos de imagen
+              onChange={handleFotoChange}
+              value={foto}
             />
-            
           </Form.Group>
-        <Form.Group className="mb-3" controlId="formCedula">
-        <Form.Label>ID</Form.Label>
-        <Form.Control
-            type="cedula"
-            placeholder="Enter ID"
-            value={cedula}
-            onChange={handleCedulaChange}
-            />
-          </Form.Group>
-      <Form.Group className="mb-3" controlId="formFoto">
-        <Form.Label>Foto cedula</Form.Label>
-        <Form.Control
-          type="file"
-          accept="image/*" // Limitar a archivos de imagen
-          onChange={handleFotoChange}
-          value={foto}
-        />
-      </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-              type="email"
-              placeholder="Enter email"
-              onChange={handleEmailChange}
-              value={email}
-            />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={handleEmailChange}
+                  value={email}
+                />
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={handlePasswordChange}
-              value={password}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formDob">
-            <Form.Label>Date of birth</Form.Label>
-            <Form.Control
-              type="date"
-              value={fechaNacimiento}
-              onChange={handleDoBChange}
-            />
-          </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={handlePasswordChange}
+                  value={password}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formDob">
+                <Form.Label>Date of birth</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={fechaNacimiento}
+                  onChange={handleDoBChange}
+                />
+              </Form.Group>
+            
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+              <Link to="/">
+                <button type="button" class="btn btn-link" >Volver</button>
+                
+              </Link>
+            </Form>
+        </div>
+        </div>
         
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
 
       
         
