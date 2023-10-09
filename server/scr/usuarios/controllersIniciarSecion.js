@@ -11,20 +11,21 @@ const getUsers = (req, res) => {
     })
 }
 //debe faltar algun awair
-const verificarMail = (req) => {
+const verificarMail = async (req) => {
     console.log("entro a verificar mail");
-    return new Promise((resolve, reject) => {
+    const resultado = await new Promise((resolve, reject) => {
         pool.query("SELECT COUNT(*) FROM usuarios WHERE mail_usuario = $1", [req], (error, results) => {
             if (error) {
                 console.error("Error en la consulta", error);
                 reject("Error en la consulta");
             } else {
                 console.log("Resultado de verificarMail: ", results.rows);
-                var resultado = results.rows;
-                resolve(resultado);
+                resolve(results.rows);
             }
-        });
+        }); 
     });
+
+    return resultado;
 };
 
 const verificarMailContrasena = (email, password) => {
@@ -42,47 +43,33 @@ const verificarMailContrasena = (email, password) => {
     });
 };
 
-const inicioDeSecion = (email, password) => {
-    var existeMail = verificarMail(email);
+const inicioDeSecion = async (email, password) => {
+    try {
+        var existeMail = await verificarMail(email);
+        console.log("Resultado de verifiación mail:", existeMail);
 
-    existeMail
-        .then((resultado) => {
-            console.log("Resultado de verificarMail: ", resultado);
-            if (resultado.length === 0) {
-                // no hay un mail asociado a esa cuenta
-                // funcion para decirle al front que ponga un cartel de que se cree una cuenta nueva
-                console.log("No tienes mail");
-                return "el mail no esta registrado";
-            } else {
-                // Aquí puedes hacer algo con el resultado
-                // hay un mail asociado a la cuenta, ahora corroborar que este bien la contrasena
-                console.log("Existe la cuenta, ahora hay que verificar la contrasena")
+        if(existeMail.length === 0){
+            return "el mail no esta registrado";
+        }
+        else{
+            var existeCuenta = verificarMailContrasena(email, password);
+            console.log("Resultado de verificarMailContrasena: ", existeCuenta);
 
-                var existeCuenta = verificarMailContrasena(email, password);
-
-                existeCuenta
-                    .then((resultadoContrasena) => {
-                        if (resultadoContrasena.length === 0) {
-                            // la contraseña es incorrecta
-                            console.log("La contraseña es incorrecta");
-                            return "contraseña incorrecta";
-                        } else {
-                            // la contraseña es correcta, puedes continuar con la lógica
-                            console.log("La contraseña es correcta");
-                            return  "todo bien"
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                        // Manejar el error si ocurre
-                    });
+            if(existeCuenta.length === 0){
+                return "contraseña incorrecta";
             }
-        })
-        .catch((error) => {
+            else {
+                return  "todo bien";
+            }
+
+        }
+        }
+        catch(error)  {
             console.error("Error:", error);
             // Manejar el error si ocurre
-        });
+            return "error";
+        };
 
-}
+    }
 
-module.exports={getUsers,verificarMail, verificarMailContrasena, inicioDeSecion};
+module.exports={getUsers, verificarMail, verificarMailContrasena, inicioDeSecion};
