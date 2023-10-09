@@ -50,6 +50,13 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
             <button type="button" class="btn btn-link" >Sign Up</button>
             
           </Link>
+          <div>
+          {!inicio && (
+            <div class="alert alert-danger" role="alert">
+            A simple danger alert—check it out!
+            </div>
+          )}
+          </div>
         </Form>
         
         

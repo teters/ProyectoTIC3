@@ -14,6 +14,7 @@ function SignUp() {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [cedula, setCedula] = useState("");
   const [foto, setFoto] = useState(null);
+  const [mensajeRegistro, setMensajeRegistro] = useState(null); // Estado para el mensaje de registro
   
   // Manejar cambios en el campo de correo electrónico
   const handleEmailChange = (e) => {
@@ -41,6 +42,7 @@ function SignUp() {
   
   const registrarse = async (e) => {
     e.preventDefault();
+    
 
     const response = await fetch("/signup", {
       method: "POST",
@@ -49,42 +51,53 @@ function SignUp() {
       },
       body: JSON.stringify({email, usuario, cedula, fechaNacimiento, password}),
     });
-
+    
+   
+    //console.log("Se imprime bien");
+    //console.log("Registro correto", data.message);
+    const data = await response.json(); 
+    
+    if(response.status === 200){
+      setMensajeRegistro({ type: "success", message: data.message });
+    } else {
+      setMensajeRegistro({ type: "error", message: data.message });
+    }
 
   };
  
   
   return (
 
-      <div className='login-background d-flex justify-content-center align-items-center 50-w vh-100'>
-        <div className='registrarse p-5 rounded bg-white'>
-          <Form onSubmit={registrarse}>
-            <Form.Group className="mb-3" controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                  type="name"
-                  placeholder="Enter name and surname"
-                  value={usuario}
-                  onChange={handleNameChange}
-                />
-                
-              </Form.Group>
-            <Form.Group className="mb-3" controlId="formCedula">
-            <Form.Label>ID</Form.Label>
-            <Form.Control
-                type="cedula"
-                placeholder="Enter ID"
-                value={cedula}
-                onChange={handleCedulaChange}
-                />
-              </Form.Group>
-          <Form.Group className="mb-3" controlId="formFoto">
-            <Form.Label>Foto cedula</Form.Label>
-            <Form.Control
-              type="file"
-              accept="image/*" // Limitar a archivos de imagen
-              onChange={handleFotoChange}
-              value={foto}
+      
+    <div className='login-background d-flex justify-content-center align-items-center 50-w vh-100'>
+    <div className='registrarse p-5 rounded bg-white'>
+      {mensajeRegistro && (
+        <div className={mensajeRegistro.type}>
+          {mensajeRegistro.message}
+        </div>
+      )}
+      
+      
+        
+    
+      <Form onSubmit={registrarse}>
+        <Form.Group className="mb-3" controlId="formName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+              type="name"
+              placeholder="Enter name and surname"
+              value={usuario}
+              onChange={handleNameChange}
+            />
+            
+          </Form.Group>
+        <Form.Group className="mb-3" controlId="formCedula">
+        <Form.Label>ID</Form.Label>
+        <Form.Control
+            type="cedula"
+            placeholder="Enter ID"
+            value={cedula}
+            onChange={handleCedulaChange}
             />
           </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -130,8 +143,6 @@ function SignUp() {
         </div>
         
 
-      
-        
       
    
   

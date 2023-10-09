@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import InterfazLogin from "./interfaces/InterfazLogin";
-import Inicio from "./interfaces/Inicio";
+import Inicio from "./Init";
 import { BrowserRouter as Router, Route,Routes, BrowserRouter} from "react-router-dom";
 import SignUp from "./interfaces/SignUp";
 import Alert from "react-bootstrap/Alert";
 import { Redirect } from "react-router-dom";
+import Home from './screens/Home';
+import MiPerfil from './screens/MiPerfil';
+import SobreNosotros from './screens/SobreNosotros';
+import Contacto from './screens/Contacto';
+import Navbar from './Components/Navbar';
 
 function App() {
   // Define estados locales para el correo electrónico y la contraseña
@@ -27,7 +32,7 @@ function App() {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
     
-    window.location.href = "/inicio";
+    
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -36,11 +41,17 @@ function App() {
       body: JSON.stringify({ email, password }),
     });
 
-    if (response.ok) {
-      setInicio(true);
+    const data = await response.json();
+
+    if (response.status === 200) {
+      window.location.href = "/inicio";
+      // En data esta el mensaje
       // Procesa la respuesta del servidor si es exitosa
     } else {
+      setInicio(false);
+      // En data esta el error
       // Maneja errores si la respuesta no es exitosa
+
     }
   };
   

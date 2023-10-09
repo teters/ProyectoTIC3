@@ -52,6 +52,7 @@ const inicioDeSecion = (email, password) => {
                 // no hay un mail asociado a esa cuenta
                 // funcion para decirle al front que ponga un cartel de que se cree una cuenta nueva
                 console.log("No tienes mail");
+                return "el mail no esta registrado";
             } else {
                 // Aquí puedes hacer algo con el resultado
                 // hay un mail asociado a la cuenta, ahora corroborar que este bien la contrasena
@@ -64,9 +65,11 @@ const inicioDeSecion = (email, password) => {
                         if (resultadoContrasena.length === 0) {
                             // la contraseña es incorrecta
                             console.log("La contraseña es incorrecta");
+                            return "contraseña incorrecta";
                         } else {
                             // la contraseña es correcta, puedes continuar con la lógica
                             console.log("La contraseña es correcta");
+                            return  "todo bien"
                         }
                     })
                     .catch((error) => {
