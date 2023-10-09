@@ -43,33 +43,34 @@ const verificarMailContrasena = (email, password) => {
     });
 };
 
+
 const inicioDeSecion = async (email, password) => {
     try {
-        var existeMail = await verificarMail(email);
-        console.log("Resultado de verifiación mail:", existeMail);
+        const existeMail = await verificarMail(email);
+        console.log("Resultado de verificarMail: ", existeMail);
 
-        if(existeMail.length === 0){
+        if (existeMail.length === 0) {
+            console.log("No tienes mail");
             return "el mail no esta registrado";
-        }
-        else{
-            var existeCuenta = verificarMailContrasena(email, password);
-            console.log("Resultado de verificarMailContrasena: ", existeCuenta);
+        } else {
+            console.log("Existe la cuenta, ahora hay que verificar la contrasena");
 
-            if(existeCuenta.length === 0){
+            const existeCuenta = await verificarMailContrasena(email, password);
+
+            if (existeCuenta.length === 0) {
+                console.log("La contraseña es incorrecta");
                 return "contraseña incorrecta";
+            } else {
+                console.log("La contraseña es correcta");
+                return "todo bien";
             }
-            else {
-                return  "todo bien";
-            }
-
         }
-        }
-        catch(error)  {
-            console.error("Error:", error);
-            // Manejar el error si ocurre
-            return "error";
-        };
-
+    } catch (error) {
+        console.error("Error:", error);
+        // Manejar el error si ocurre
+        throw error; // Puedes lanzar el error nuevamente o manejarlo aquí según sea necesario
     }
+};
+        
 
 module.exports={getUsers, verificarMail, verificarMailContrasena, inicioDeSecion};
