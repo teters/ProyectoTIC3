@@ -71,11 +71,7 @@ function SignUp() {
       
     <div className='login-background d-flex justify-content-center align-items-center 50-w vh-100'>
     <div className='registrarse p-5 rounded bg-white'>
-      {mensajeRegistro && (
-        <div className={mensajeRegistro.type}>
-          {mensajeRegistro.message}
-        </div>
-      )}
+      
       
       
         
@@ -138,6 +134,11 @@ function SignUp() {
                 <button type="button" class="btn btn-link" >Volver</button>
                 
               </Link>
+              {mensajeRegistro && (
+                <div class="alert alert-warning" role="alert">
+                {mensajeRegistro.message}
+                </div>
+              )}
             </Form>
         </div>
         </div>
