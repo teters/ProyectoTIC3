@@ -10,11 +10,11 @@ const getUsers = (req, res) => {
         res.status(200).json(results.rows); // si el status es correcto, que devuelva las rows del select
     })
 }
-
+//debe faltar algun awair
 const verificarMail = (req) => {
     console.log("entro a verificar mail");
     return new Promise((resolve, reject) => {
-        pool.query("SELECT * FROM prueba.usuarios WHERE mail_usuario = $1", [req], (error, results) => {
+        pool.query("SELECT COUNT(*) FROM usuarios WHERE mail_usuario = $1", [req], (error, results) => {
             if (error) {
                 console.error("Error en la consulta", error);
                 reject("Error en la consulta");
@@ -29,7 +29,7 @@ const verificarMail = (req) => {
 
 const verificarMailContrasena = (email, password) => {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT * FROM prueba.usuarios WHERE mail_usuario = $1 AND contraseña_usuario = $2", [email, password], (error, results) => {
+        pool.query("SELECT * FROM usuarios WHERE mail_usuario = $1 AND contraseña_usuario = $2", [email, password], (error, results) => {
             if (error) {
                 console.error("Error en la consulta", error);
                 reject("Error en la consulta");
