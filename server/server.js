@@ -17,10 +17,12 @@ app.get("/api", (req,res) =>{
 })
 app.use(bodyParser.json());
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
-  let resultadoInicioSecion = controller.inicioDeSecion(email,password);
+  let resultadoInicioSecion = await controller.inicioDeSecion(email, password);
+  console.log("entro al app.post");
+
   if(resultadoInicioSecion === "el mail no esta registrado"){
     return res.status(400).json({message: "El mail no esta registrado"});
   }
@@ -28,7 +30,8 @@ app.post("/api/login", (req, res) => {
     return res.status(400).json({message: "La contraseña es incorrecta"});
   }
   else if(resultadoInicioSecion === "todo bien"){
-    return res.status(200).json({message: "Todo bien"})
+    console.log("entro al ultimo elseif");
+    return res.status(200).json({message: "todo bien"})
   }
 });
 
