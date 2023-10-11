@@ -13,23 +13,23 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
       <h1 class="text-left mb-4"> Log in</h1>
         <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>Correo electrónico</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Ingrese email"
               value={email}
               onChange={onEmailChange}
             />
             <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
+              Nunca compartiremos su correo electrónico con nadie más.
             </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Contraseña</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Password"
+              placeholder="Ingrese contraseña"
               value={password}
               onChange={onPasswordChange}
             />
@@ -43,17 +43,17 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
           </div>
 
           <Button variant="primary" class="btn btn-primary" type="submit">
-            Submit
+            Entrar
             
           </Button>
           <Link to="/signup">
-            <button type="button" class="btn btn-link" >Sign Up</button>
+            <button type="button" class="btn btn-link" >Registrarse</button>
             
           </Link>
           <div>
           {!inicio && (
             <div class="alert alert-danger" role="alert">
-            A simple danger alert—check it out!
+            Datos invalidos!
             </div>
           )}
           </div>

@@ -78,10 +78,10 @@ function SignUp() {
     
       <Form onSubmit={registrarse}>
         <Form.Group className="mb-3" controlId="formName">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Nombre</Form.Label>
           <Form.Control
               type="name"
-              placeholder="Enter name and surname"
+              placeholder="Ingrese nombre y apellido"
               value={usuario}
               onChange={handleNameChange}
             />
@@ -91,44 +91,52 @@ function SignUp() {
         <Form.Label>ID</Form.Label>
         <Form.Control
             type="cedula"
-            placeholder="Enter ID"
+            placeholder="Ingrese cedula"
             value={cedula}
             onChange={handleCedulaChange}
             />
           </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Correo electronico</Form.Label>
               <Form.Control
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="Ingrese correo electronico"
                   onChange={handleEmailChange}
                   value={email}
                 />
                 <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
+                  Nunca compartiremos su correo electrónico con nadie más.
                 </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Contraseña</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Password"
+                  placeholder="Ingrese contraseña"
                   onChange={handlePasswordChange}
                   value={password}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formDob">
-                <Form.Label>Date of birth</Form.Label>
+                <Form.Label>Fecha de nacimiento</Form.Label>
                 <Form.Control
                   type="date"
                   value={fechaNacimiento}
                   onChange={handleDoBChange}
                 />
               </Form.Group>
+              <Form.Group controlId="formFile">
+                <Form.Label>Ingrese foto de cedula</Form.Label>
+                  <Form.Control
+                    type="file"
+                    accept="image/*" // Solo permite archivos de imagen
+                    
+              />
+              </Form.Group>
             
               <Button variant="primary" type="submit">
-                Submit
+                Enviar
               </Button>
               <Link to="/">
                 <button type="button" class="btn btn-link" >Volver</button>
