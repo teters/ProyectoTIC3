@@ -13,7 +13,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [cedula, setCedula] = useState("");
-  const [foto, setFoto] = useState(null);
+  const [fotoCedula, setFoto] = useState(null);
   const [mensajeRegistro, setMensajeRegistro] = useState(null); // Estado para el mensaje de registro
   
   // Manejar cambios en el campo de correo electrónico
@@ -43,19 +43,26 @@ function SignUp() {
   const registrarse = async (e) => {
     e.preventDefault();
     
-
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("usuario", usuario);
+    formData.append("cedula", cedula);
+    formData.append("fechaNacimiento", fechaNacimiento);
+    formData.append("password", password);
+    //formData.append("file", fotoCedula);
+    formData.append("fotoCedula", fotoCedula);
     const response = await fetch("/signup", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({email, usuario, cedula, fechaNacimiento, password}),
+      body: formData
     });
+
+  
     
-   
+    
     //console.log("Se imprime bien");
     //console.log("Registro correto", data.message);
     const data = await response.json(); 
+    console.log(data.message);
     
     if(response.status === 200){
       setMensajeRegistro({ type: "success", message: data.message });
@@ -76,7 +83,7 @@ function SignUp() {
       
         
     
-      <Form onSubmit={registrarse}>
+      <Form onSubmit={registrarse} enctype="multipart/form-data">
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
@@ -128,10 +135,11 @@ function SignUp() {
               </Form.Group>
               <Form.Group controlId="formFile">
                 <Form.Label>Ingrese foto de cedula</Form.Label>
-                  <Form.Control
+                  <Form.Control 
                     type="file"
                     accept="image/*" // Solo permite archivos de imagen
-                    
+                    name="fotoCedula"
+                    onChange={handleFotoChange}
               />
               </Form.Group>
             
