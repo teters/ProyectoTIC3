@@ -31,8 +31,10 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
-    
+
     window.location.href = "/inicio";
+    
+
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -40,12 +42,18 @@ function App() {
       },
       body: JSON.stringify({ email, password }),
     });
-
-    if (response.ok) {
-      setInicio(true);
+    
+    const data = await response.json();
+    
+    if (response.status === 200) {
+      window.location.href = "/inicio";
+      // En data esta el mensaje
       // Procesa la respuesta del servidor si es exitosa
     } else {
+      setInicio(false);
+      // En data esta el error
       // Maneja errores si la respuesta no es exitosa
+
     }
   };
   

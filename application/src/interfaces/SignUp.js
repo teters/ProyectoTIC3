@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import "./styles/styless.css";
 
 
 function SignUp() {
@@ -11,7 +13,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [cedula, setCedula] = useState("");
-  const [foto, setFoto] = useState(null);
+  const [fotoCedula, setFoto] = useState(null);
   const [mensajeRegistro, setMensajeRegistro] = useState(null); // Estado para el mensaje de registro
   
   // Manejar cambios en el campo de correo electrónico
@@ -41,19 +43,26 @@ function SignUp() {
   const registrarse = async (e) => {
     e.preventDefault();
     
-
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("usuario", usuario);
+    formData.append("cedula", cedula);
+    formData.append("fechaNacimiento", fechaNacimiento);
+    formData.append("password", password);
+    //formData.append("file", fotoCedula);
+    formData.append("fotoCedula", fotoCedula);
     const response = await fetch("/signup", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({email, usuario, cedula, fechaNacimiento, password}),
+      body: formData
     });
+
+  
     
-   
+    
     //console.log("Se imprime bien");
     //console.log("Registro correto", data.message);
     const data = await response.json(); 
+    console.log(data.message);
     
     if(response.status === 200){
       setMensajeRegistro({ type: "success", message: data.message });
@@ -67,20 +76,19 @@ function SignUp() {
   return (
 
       
-      <div>
-      {mensajeRegistro && (
-        <div className={mensajeRegistro.type}>
-          {mensajeRegistro.message}
-        </div>
-      )}
+    <div className='login-background d-flex justify-content-center align-items-center 50-w vh-100'>
+    <div className='registrarse p-5 rounded bg-white'>
+      
+      
+      
         
     
-      <Form onSubmit={registrarse}>
+      <Form onSubmit={registrarse} enctype="multipart/form-data">
         <Form.Group className="mb-3" controlId="formName">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Nombre</Form.Label>
           <Form.Control
               type="name"
-              placeholder="Enter name and surname"
+              placeholder="Ingrese nombre y apellido"
               value={usuario}
               onChange={handleNameChange}
             />
@@ -90,59 +98,68 @@ function SignUp() {
         <Form.Label>ID</Form.Label>
         <Form.Control
             type="cedula"
-            placeholder="Enter ID"
+            placeholder="Ingrese cedula"
             value={cedula}
             onChange={handleCedulaChange}
             />
           </Form.Group>
-      <Form.Group className="mb-3" controlId="formFoto">
-        <Form.Label>Foto cedula</Form.Label>
-        <Form.Control
-          type="file"
-          accept="image/*" // Limitar a archivos de imagen
-          onChange={handleFotoChange}
-          value={foto}
-        />
-      </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-              type="email"
-              placeholder="Enter email"
-              onChange={handleEmailChange}
-              value={email}
-            />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Correo electronico</Form.Label>
+              <Form.Control
+                  type="email"
+                  placeholder="Ingrese correo electronico"
+                  onChange={handleEmailChange}
+                  value={email}
+                />
+                <Form.Text className="text-muted">
+                  Nunca compartiremos su correo electrónico con nadie más.
+                </Form.Text>
+              </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={handlePasswordChange}
-              value={password}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formDob">
-            <Form.Label>Date of birth</Form.Label>
-            <Form.Control
-              type="date"
-              value={fechaNacimiento}
-              onChange={handleDoBChange}
-            />
-          </Form.Group>
-        
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-
-        </Form>
-
-      
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Ingrese contraseña"
+                  onChange={handlePasswordChange}
+                  value={password}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formDob">
+                <Form.Label>Fecha de nacimiento</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={fechaNacimiento}
+                  onChange={handleDoBChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="formFile">
+                <Form.Label>Ingrese foto de cedula</Form.Label>
+                  <Form.Control 
+                    type="file"
+                    accept="image/*" // Solo permite archivos de imagen
+                    name="fotoCedula"
+                    onChange={handleFotoChange}
+              />
+              </Form.Group>
+            
+              <Button variant="primary" type="submit">
+                Enviar
+              </Button>
+              <Link to="/">
+                <button type="button" class="btn btn-link" >Volver</button>
+                
+              </Link>
+              {mensajeRegistro && (
+                <div class="alert alert-warning" role="alert">
+                {mensajeRegistro.message}
+                </div>
+              )}
+            </Form>
         </div>
+        </div>
+        
+
       
    
   

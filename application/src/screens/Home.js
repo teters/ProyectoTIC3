@@ -9,7 +9,7 @@ let outMultiplier = 0.0;
 
 const Home = () => {
   const [time, setTime] = useState(0);
-  const [buttonText, setButtonText] = useState("Bet"); // Inicialmente, el botón muestra "Bet"
+  const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   
 
@@ -56,20 +56,33 @@ const Home = () => {
   };
 
   const handleButtonClick = () => {
-    if (buttonText === "Bet") {
-      setButtonText("Stop");
+    if (buttonText === "Apostar") {
+      setButtonText("Retirar");
       // Realiza acciones relacionadas con "Bet" aquí
+<<<<<<< HEAD
     } else if (buttonText === "Stop" ) {
       // Realiza acciones relacionadas con "Stop" aquí
       outMultiplier = multiplier;
       
+=======
+    } else if (buttonText === "Retirar") {
+      // Realiza acciones relacionadas con "Stop" aquí
+
+      // Cambia el texto del botón de vuelta a "Bet" cuando sea apropiado
+      setButtonText("Apostar");
+>>>>>>> 19c43c07daf8afa17b0859b16afac01d68b52691
     }
   };
+  
 
   return (
     <div className={styles.home}> 
       <p>
         No lo dejes <b>estrellarse</b>! 
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 19c43c07daf8afa17b0859b16afac01d68b52691
       </p>
       <p> Dinero disponible : $ {money}</p>
       <p>

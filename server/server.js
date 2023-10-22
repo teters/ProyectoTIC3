@@ -1,12 +1,16 @@
 const express = require('express');
 const usuariosRoutes = require('./scr/usuarios/routes');
 const app = express();
+const multer = require('multer');
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 300;
 const controller = require('./scr/usuarios/controllersIniciarSecion')
 const controllerRegistro = require('./scr/usuarios/controllersRegistro')
 // Importa el controlador de tareas
 const taskController = require('./controllers/taskController');
+
+const upload = multer({ dest: 'uploads/' }); // Directorio donde se guardarán las imágenes
+
 
 app.use(express.json()); // para que se puedan hacer puts y gets de jsons
 app.use('/api/usuarios', usuariosRoutes); //
@@ -17,23 +21,64 @@ app.get("/api", (req,res) =>{
 })
 app.use(bodyParser.json());
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
-  controller.inicioDeSecion(email,password);
+  let resultadoInicioSecion = await controller.inicioDeSecion(email, password);
+  console.log("entro al app.post");
+
+  if(resultadoInicioSecion === "el mail no esta registrado"){
+    return res.status(400).json({message: "El mail no esta registrado"});
+  }
+  else if(resultadoInicioSecion === "contraseña incorrecta"){
+    return res.status(400).json({message: "La contraseña es incorrecta"});
+  }
+  else if(resultadoInicioSecion === "todo bien"){
+    console.log("entro al ultimo elseif");
+    return res.status(200).json({message: "todo bien"})
+  }
 });
 
 
-app.post("/signup", async (req, res) => {
-  const {email, usuario, cedula, fechaNacimiento, password } = req.body;
+
+
+app.post("/signup", upload.single("fotoCedula"), async (req, res) => {
+  //const {email, usuario, cedula, fechaNacimiento, password} = req.body;
+  //const fotoCedula1 = req.body.file;
+  const email = req.body.email;
+  const usuario = req.body.usuario;
+  const cedula = req.body.cedula;
+  const fechaNacimiento = req.body.fechaNacimiento;
+  const password = req.body.password;
+  console.log(req.file);
+  //console.log(req.file.fotoCedula);
+  const fotoCedula = req.file;
+  //console.log(req);
   
-  let resultadoRegistro = controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
+  const resultadoRegistro = await controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password, fotoCedula);
   
-  console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+
   if (resultadoRegistro === "Registro existoso" ){
-    //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
+    console.log("resultadoRegistro:", resultadoRegistro);
     return res.status(200).json({message: "Registro existoso"});
   }
+
+  else if(resultadoRegistro === "Todos los campos son obligatorios"){
+    return  res.status(400).json({message: "Todos los campos son obligatorios"});
+  }
+
+  else if(resultadoRegistro === "El correo electrónico ya está registrado."){
+    return res.status(400).json({message:"El correo electrónico ya está registrado."});
+  }
+
+  else if(resultadoRegistro === "Esa cédula ya fue registrada"){
+    return res.status(400).json({message:"Esa cédula ya fue registrada"});
+  }
+
+  else if ( resultadoRegistro === "La cédula debe contener exactamente 8 dígitos."){
+    return res.status(400).json({message:"La cédula debe contener exactamente 8 dígitos."});
+  }
+
   else if (resultadoRegistro === "Debes tener al menos 18 años para registrarte."){
     //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
     return res.status(400).json({message: "Debes tener al menos 18 años para registrarte."});
