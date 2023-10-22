@@ -1,12 +1,16 @@
 const express = require('express');
 const usuariosRoutes = require('./scr/usuarios/routes');
 const app = express();
+const multer = require('multer');
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 300;
 const controller = require('./scr/usuarios/controllersIniciarSecion')
 const controllerRegistro = require('./scr/usuarios/controllersRegistro')
 // Importa el controlador de tareas
 const taskController = require('./controllers/taskController');
+
+const upload = multer({ dest: 'uploads/' }); // Directorio donde se guardarán las imágenes
+
 
 app.use(express.json()); // para que se puedan hacer puts y gets de jsons
 app.use('/api/usuarios', usuariosRoutes); //
@@ -36,10 +40,22 @@ app.post("/api/login", async (req, res) => {
 });
 
 
-app.post("/signup", async (req, res) => {
-  const {email, usuario, cedula, fechaNacimiento, password } = req.body;
+
+
+app.post("/signup", upload.single("fotoCedula"), async (req, res) => {
+  //const {email, usuario, cedula, fechaNacimiento, password} = req.body;
+  //const fotoCedula1 = req.body.file;
+  const email = req.body.email;
+  const usuario = req.body.usuario;
+  const cedula = req.body.cedula;
+  const fechaNacimiento = req.body.fechaNacimiento;
+  const password = req.body.password;
+  console.log(req.file);
+  //console.log(req.file.fotoCedula);
+  const fotoCedula = req.file;
+  //console.log(req);
   
-  const resultadoRegistro = await controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password);
+  const resultadoRegistro = await controllerRegistro.registrarUsuarios(email, usuario, cedula, fechaNacimiento, password, fotoCedula);
   
 
   if (resultadoRegistro === "Registro existoso" ){
