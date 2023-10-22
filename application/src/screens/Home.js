@@ -8,14 +8,14 @@ let money = 500;
 let outMultiplier = 0.0;
 
 const Home = () => {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(-70);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   
 
   useEffect(() => {
     const interval = setInterval(() => {
-
+      
       setTime(prevTime => prevTime + 1);
 
       // Cuando 'time' llega a 3, inicia un nuevo ciclo
@@ -43,7 +43,7 @@ const Home = () => {
 
   const getImageSource = () => {
     if (totalCycles > 0){
-      if (time === 0) return require("../assets/gameStart.png");
+      if (time <= 0) return require("../assets/gameStart.png");
       if (time === 1) return require("../assets/game1.png");
       if (time === 2) return require("../assets/game2.png");
       if (time === 3) return require("../assets/game3.png");
@@ -59,18 +59,11 @@ const Home = () => {
     if (buttonText === "Apostar") {
       setButtonText("Retirar");
       // Realiza acciones relacionadas con "Bet" aquí
-<<<<<<< HEAD
-    } else if (buttonText === "Stop" ) {
-      // Realiza acciones relacionadas con "Stop" aquí
-      outMultiplier = multiplier;
-      
-=======
     } else if (buttonText === "Retirar") {
       // Realiza acciones relacionadas con "Stop" aquí
-
+      outMultiplier = multiplier;
       // Cambia el texto del botón de vuelta a "Bet" cuando sea apropiado
       setButtonText("Apostar");
->>>>>>> 19c43c07daf8afa17b0859b16afac01d68b52691
     }
   };
   
@@ -78,11 +71,7 @@ const Home = () => {
   return (
     <div className={styles.home}> 
       <p>
-        No lo dejes <b>estrellarse</b>! 
-<<<<<<< HEAD
-=======
-        
->>>>>>> 19c43c07daf8afa17b0859b16afac01d68b52691
+        No lo dejes <b>estrellarse</b>! {time}
       </p>
       <p> Dinero disponible : $ {money}</p>
       <p>
