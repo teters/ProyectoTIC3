@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./styles/styless.css";
+import Modal from 'react-bootstrap/Modal';
+import FormGroup from "react-bootstrap/esm/FormGroup";
 
 
 function SignUp() {
@@ -15,6 +17,21 @@ function SignUp() {
   const [cedula, setCedula] = useState("");
   const [foto, setFoto] = useState(null);
   const [mensajeRegistro, setMensajeRegistro] = useState(null); // Estado para el mensaje de registro
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [estado,setEstado] = useState(true);
+
+  
+ 
+  const cambiarEsatdo = () => {
+    setEstado(false);
+    setShow(false);
+    
+  }
+
+  
   
   // Manejar cambios en el campo de correo electrónico
   const handleEmailChange = (e) => {
@@ -70,13 +87,27 @@ function SignUp() {
 
       
     <div className='login-background d-flex justify-content-center align-items-center 50-w vh-100'>
-    <div className='registrarse p-5 rounded bg-white'>
+    <div className='registrarse p-3 rounded bg-white'>
       
+
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Terminos y condiciones</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>terminos</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={cambiarEsatdo}>
+              Aceptar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
       
       
         
     
       <Form onSubmit={registrarse}>
+        
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
@@ -133,11 +164,22 @@ function SignUp() {
                     accept="image/*" // Solo permite archivos de imagen
                     
               />
+             
               </Form.Group>
-            
-              <Button variant="primary" type="submit">
+              
+              <FormGroup className="mb-3" controlId="boton">
+                
+                <Button className="btn btn-link" onClick={handleShow}>
+                  Terminos y condiciones
+                </Button>
+              </FormGroup>
+              
+              <Button variant="primary" type="submit" disabled={estado}>
                 Enviar
-              </Button>
+              </Button>              
+              
+              
+              
               <Link to="/">
                 <button type="button" class="btn btn-link" >Volver</button>
                 
@@ -148,6 +190,9 @@ function SignUp() {
                 </div>
               )}
             </Form>
+            
+            
+
         </div>
         </div>
         
