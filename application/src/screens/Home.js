@@ -3,7 +3,9 @@ import styles from "./Home.module.css";
 import { Link } from 'react-scroll';
 
 var totalCycles = 50; // Número deseado de ciclos
-let multiplier = 1.0; 
+let multiplier = 1.0;
+let money = 500; 
+let outMultiplier = 0.0;
 
 const Home = () => {
   const [time, setTime] = useState(0);
@@ -57,11 +59,10 @@ const Home = () => {
     if (buttonText === "Bet") {
       setButtonText("Stop");
       // Realiza acciones relacionadas con "Bet" aquí
-    } else if (buttonText === "Stop") {
+    } else if (buttonText === "Stop" ) {
       // Realiza acciones relacionadas con "Stop" aquí
-
-      // Cambia el texto del botón de vuelta a "Bet" cuando sea apropiado
-      setButtonText("Bet");
+      outMultiplier = multiplier;
+      
     }
   };
 
@@ -69,9 +70,8 @@ const Home = () => {
     <div className={styles.home}> 
       <p>
         No lo dejes <b>estrellarse</b>! 
-        {time}
-        {totalCycles}
       </p>
+      <p> Dinero disponible : $ {money}</p>
       <p>
         Multiplier : X {multiplier}
       </p>

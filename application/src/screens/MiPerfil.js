@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const MiPerfil = () => {
   return (
     <div name = "MiPerfil">MiPerfil</div>
+    
   )
 }
 
