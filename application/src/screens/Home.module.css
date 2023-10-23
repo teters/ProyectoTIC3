@@ -16,8 +16,17 @@
     height: 350px;
     align-items:baseline;
 }
+.margins {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10%; /* Ancho de los márgenes laterales */
+    background: url('fondoL2.jpg') left left/cover no-repeat;
+    
+  }
 
 .callToAction{
+    margin-top: 20px;
     border: 1px solid #2e518b; /*anchura, estilo y color borde*/
     padding: 20px; /*espacio alrededor texto*/
     background-color: #2e518b; /*color botón*/
@@ -26,3 +35,5 @@
     text-transform: uppercase; /*capitalización texto*/
     border-radius: 50px; /*bordes redondos*/
 }
+  
+  

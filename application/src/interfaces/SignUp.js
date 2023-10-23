@@ -176,9 +176,9 @@ function SignUp() {
               
               <FormGroup className="mb-3" controlId="boton">
                 
-                <Button className="btn btn-link" onClick={handleShow}>
+                <button type="button" className="btn btn-link" onClick={handleShow}>
                   Terminos y condiciones
-                </Button>
+                </button>
               </FormGroup>
               
               <Button variant="primary" type="submit" disabled={estado}>

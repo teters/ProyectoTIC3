@@ -67,7 +67,9 @@ const Home = () => {
   
 
   return (
+    
     <div className={styles.home}> 
+      <div className={styles.margins}></div>
       <p>
         No lo dejes <b>estrellarse</b>! 
         
@@ -82,6 +84,7 @@ const Home = () => {
         </button>
 
     </div>
+    
   )
 }
 
