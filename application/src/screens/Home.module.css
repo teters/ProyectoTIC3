@@ -7,7 +7,8 @@
 }
 
 .home p {
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 0px;
     color: #f1f1f1
 }
 
@@ -27,6 +28,7 @@
 
 .callToAction{
     margin-top: 20px;
+    /*margin-left: 10px;*/
     border: 1px solid #2e518b; /*anchura, estilo y color borde*/
     padding: 20px; /*espacio alrededor texto*/
     background-color: #2e518b; /*color botón*/
@@ -42,3 +44,16 @@
     opacity: 0.6; /* Opacidad reducida para indicar que está deshabilitado */
     /* Otros estilos que desees aplicar al botón deshabilitado */
   }
+
+  .callToActionDisabled{
+    margin-top: 20px;
+    border: 1px solid #2e518b; /*anchura, estilo y color borde*/
+    padding: 15px; /*espacio alrededor texto*/
+    background-color: #2e518b; /*color botón*/
+    color: #ffffff; /*color texto*/
+    text-decoration: none; /*decoración texto*/
+    text-transform: uppercase; /*capitalización texto*/
+    border-radius: 50px; /*bordes redondos*/
+    pointer-events: none; /* Evita eventos de puntero, incluyendo clics */
+    opacity: 0.6; /* Opacidad reducida para indicar que está deshabilitado */
+}
