@@ -19,7 +19,7 @@
   padding: 30px; /* Relleno interno, puedes ajustarlo según tus necesidades */
   border: 1px solid #ccc; /* Borde */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
-  margin: 0 auto; /* Centrar horizontalmente */
+  margin-bottom: 20px; /* Centrar horizontalmente */
   position: relative;
    /* Ruta a tu imagen de edificios */
   background-repeat: no-repeat;

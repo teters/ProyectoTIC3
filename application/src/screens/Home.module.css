@@ -26,3 +26,10 @@
     text-transform: uppercase; /*capitalización texto*/
     border-radius: 50px; /*bordes redondos*/
 }
+
+/* Estilo para el botón deshabilitado */
+.buttonDisabled {
+    pointer-events: none; /* Evita eventos de puntero, incluyendo clics */
+    opacity: 0.6; /* Opacidad reducida para indicar que está deshabilitado */
+    /* Otros estilos que desees aplicar al botón deshabilitado */
+  }
