@@ -1,6 +1,6 @@
 .login-box {
     max-width: 400px; /* Ancho máximo de la caja */
-    padding: 20px; /* Relleno interno */
+    padding: 30px; /* Relleno interno */
     border: 1px solid #ccc; /* Borde */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
     margin: 0 auto; /* Centrar horizontalmente */
