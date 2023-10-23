@@ -7,7 +7,7 @@ let multiplier = 1.0;
 let money = 500; 
 let outMultiplier = 0.0;
 
-const Home = () => {
+function Home ({nombre,saldo})  {
   const [time, setTime] = useState(-70);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
@@ -66,12 +66,14 @@ const Home = () => {
       setButtonText("Apostar");
     }
   };
+
+  
   
 
   return (
     
     <div className={styles.home}> 
-      
+      <div className={styles.margins}></div>
       <p>
         No lo dejes <b>estrellarse</b>! {time}
       </p>

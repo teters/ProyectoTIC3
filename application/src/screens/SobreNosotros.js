@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import styles from "./SobreNosotros.module.css";
 
 const SobreNosotros = () => {
   return (
-    <div name = "SobreNosotros"> Sobre Nosotros
+    <div className= {styles.home}> 
+      <p>Sobre Nosotros</p>
     </div>
   )
 }

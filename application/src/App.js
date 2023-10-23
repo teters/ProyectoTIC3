@@ -16,6 +16,8 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inicio,setInicio]=useState(true);
+  const [nombre,setNombre] = useState("");
+  const [saldo, setSaldo] = useState("");
 
   // Manejar cambios en el campo de correo electrónico
   const handleEmailChange = (e) => {
@@ -32,7 +34,7 @@ function App() {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
 
-    //window.location.href = "/inicio";
+    window.location.href = "/inicio";
     
 
     const response = await fetch("/api/login", {
@@ -46,6 +48,9 @@ function App() {
     const data = await response.json();
     
     if (response.status === 200) {
+      //Obtener nombre y saldo
+      setNombre("");
+      setSaldo()
       window.location.href = "/inicio";
       // En data esta el mensaje
       // Procesa la respuesta del servidor si es exitosa
@@ -75,7 +80,11 @@ function App() {
                       
 
               />}/>
-        <Route exact path="/inicio" element={<Inicio/>}/>
+        <Route exact path="/inicio" element={<Inicio
+                    nombre={nombre}
+                    saldo={saldo}
+              
+              />}/>
 
       </Routes>
     </BrowserRouter>
