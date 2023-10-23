@@ -11,6 +11,8 @@ import SobreNosotros from './screens/SobreNosotros';
 import Contacto from './screens/Contacto';
 import Navbar from './Components/Navbar';
 
+
+
 function App() {
   // Define estados locales para el correo electrónico y la contraseña
   const [email, setEmail] = useState("");
@@ -33,10 +35,8 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
-
-    window.location.href = "/inicio";
+   
     
-
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -47,10 +47,20 @@ function App() {
     
     const data = await response.json();
     
+    
+    
     if (response.status === 200) {
-      //Obtener nombre y saldo
-      setNombre("");
-      setSaldo()
+      
+      const datosResponse = await fetch(`/login/datos?email=${email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const datos = await datosResponse.json();
+      setNombre(datos.nombre);
+      setSaldo(datos.saldo);
       window.location.href = "/inicio";
       // En data esta el mensaje
       // Procesa la respuesta del servidor si es exitosa
@@ -81,6 +91,7 @@ function App() {
 
               />}/>
         <Route exact path="/inicio" element={<Inicio
+                    email={email} 
                     nombre={nombre}
                     saldo={saldo}
               

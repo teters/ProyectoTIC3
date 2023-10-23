@@ -12,8 +12,9 @@ const getUsers = (req, res) => {
     })
 }
 //debe faltar algun awair
+
 const verificarMail = async (email) => {
-    console.log("entro a verificar mail");
+    //console.log("entro a verificar mail");
    // const resultado = await new Promise((resolve, reject) => {
     return new Promise((resolve, reject) => {
         pool.query("SELECT COUNT(*) FROM usuarios WHERE mail_usuario = $1", [email], (error, results) => {
@@ -22,7 +23,7 @@ const verificarMail = async (email) => {
                 console.error("Error en la consulta", error);
                 reject("Error en la consulta");
             } else {
-                console.log("Resultado de verificarMail en vM: ", results.rows);
+                //console.log("Resultado de verificarMail en vM: ", results.rows);
                 resolve(results.rows);
             }
         }); 
@@ -82,18 +83,18 @@ const verificarMailContrasena = (email, password) => {
 
 const inicioDeSecion = async (email, password) => {
     try {
-        console.log(email);
+        
         const existeMail = await verificarMail(email);
-        console.log("Resultado de verificarMail: ", existeMail.rowsCount);
+        //console.log("Resultado de verificarMail: ", existeMail.rowsCount);
 
         if (existeMail.length === 0) {
             console.log("No tienes mail");
             return "el mail no esta registrado";
         } else {
-            console.log("Existe la cuenta, ahora hay que verificar la contrasena");
+            //console.log("Existe la cuenta, ahora hay que verificar la contrasena");
 
             const existeCuenta = await verificarMailContrasena(email, password);
-            console.log(existeCuenta.length);
+            //console.log(existeCuenta.length);
             if (existeCuenta.length === 0) {
                 console.log("La contraseña es incorrecta");
                 return "contraseña incorrecta";
@@ -108,6 +109,28 @@ const inicioDeSecion = async (email, password) => {
         throw error; // Puedes lanzar el error nuevamente o manejarlo aquí según sea necesario
     }
 };
+
+const buscarDatos = async(email) => {
+    
+    const query = {
+        text: 'SELECT nombre_usuario, dinero_disponible FROM usuarios WHERE mail_usuario = $1',
+        values: [email],
+      };
+    
+      
+    const result = await pool.query(query);
+    
+
+    if (result.rows.length === 1) {
+        const { nombre_usuario, dinero_disponible } = result.rows[0];
+        return { nombre: nombre_usuario, saldo: dinero_disponible };
+      } else {
+        // El correo electrónico no se encontró en la base de datos
+        return { error: 'Correo electrónico no encontrado' };
+      }
+
+
+};
         
 
-module.exports={getUsers, verificarMail, verificarMailContrasena, inicioDeSecion};
+module.exports={getUsers, verificarMail, verificarMailContrasena, inicioDeSecion, buscarDatos};

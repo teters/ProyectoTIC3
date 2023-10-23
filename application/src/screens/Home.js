@@ -4,6 +4,8 @@ import { Link } from 'react-scroll';
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
+
+
 var totalCycles = 50; // Número deseado de ciclos
 var currentCycle = 50;
 let multiplier = 1.0;
@@ -12,12 +14,17 @@ let outMultiplier = 0.0;
 let aApostar = 0;
 let apostado = 0; 
 
-function Home ({nombre,saldo})  {
+function Home  (props)  {
+  const {email, saldo, nombre} = props;
   const [time, setTime] = useState(-70);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
+  
+  
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -92,11 +99,13 @@ function Home ({nombre,saldo})  {
   return (
     
     <div className={styles.home}> 
+      
       <div className={styles.margins}></div>
       <p>
         No lo dejes <b>estrellarse</b>! {time}
       </p>
       <p> Dinero disponible : $ {money}</p>
+      <p>el mail es:{email}</p>
       <p>
         Multiplicador : X {multiplier}
       </p>
@@ -118,4 +127,4 @@ function Home ({nombre,saldo})  {
   )
 }
 
-export default Home
+export default Home;

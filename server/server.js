@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 300;
 const controller = require('./scr/usuarios/controllersIniciarSecion')
 const controllerRegistro = require('./scr/usuarios/controllersRegistro')
+const controllerInicio = require('./scr/usuarios/controllerPaginaInicio')
 // Importa el controlador de tareas
 const taskController = require('./controllers/taskController');
 
@@ -25,7 +26,7 @@ app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
   let resultadoInicioSecion = await controller.inicioDeSecion(email, password);
-  console.log("entro al app.post");
+
 
   if(resultadoInicioSecion === "el mail no esta registrado"){
     return res.status(400).json({message: "El mail no esta registrado"});
@@ -34,13 +35,46 @@ app.post("/api/login", async (req, res) => {
     return res.status(400).json({message: "La contraseña es incorrecta"});
   }
   else if(resultadoInicioSecion === "todo bien"){
-    console.log("entro al ultimo elseif");
-    return res.status(200).json({message: "todo bien"})
+    //console.log("entro al ultimo elseif");
+    return res.status(200).json({message: "todo bien"}) 
   }
 });
 
+/*app.post("/login/datos", async (req, res) => {
+  //console.log("entro al post");
+  const { email } = req.body;
+  const datos = await controller.buscarDatos(email);
+  //console.log("volvio del buscar datos");
+  console.log(datos);
+  return datos;
+});*/
 
+app.get("/login/datos", async (req, res) => {
+  const email = req.query.email; // Obtiene el correo electrónico desde los parámetros de consulta
 
+  if (!email) {
+    return res.status(400).json({ error: "Correo electrónico no proporcionado" });
+  }
+
+  try {
+    const datos = await controller.buscarDatos(email);
+    //console.log(datos.nombre);
+    //console.log(datos.saldo);
+    res.json(datos);
+  } catch (error) {
+    console.error("Error al buscar datos:", error);
+    res.status(500).json({ error: "Error al buscar datos" });
+  }
+});
+
+app.post("/incio", async (req, res) => {
+  console.log("entro al post de inicio");
+  const email= req.body;
+  console.log(email);
+
+  controllerInicio.busquedaDatosU(email);
+
+});
 
 app.post("/signup", upload.single("fotoCedula"), async (req, res) => {
   //const {email, usuario, cedula, fechaNacimiento, password} = req.body;

@@ -72,9 +72,6 @@ function SignUp() {
       method: "POST",
       body: formData
     });
-
-  
-    
     
     //console.log("Se imprime bien");
     //console.log("Registro correto", data.message);
@@ -88,6 +85,7 @@ function SignUp() {
     }
 
   };
+
  
   
   return (
