@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const writeFile = promisify(fs.writeFile);
+const bcrypt = require('bcrypt');
 
 
 
@@ -20,27 +21,8 @@ const writeFile = promisify(fs.writeFile);
 const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, password, fotoCedula) => {
   let devolucion = "";
 
-  /*async function convertirImagenABase64(formDataFile) {
-    const file = formDataFile;
-    
-    
-    if (!file) {
-      throw new Error('No se proporcionó un archivo en el objeto FormData');
-    }
-  
-    try {
-      const fileBuffer = formDataFile;
-      const base64Data = fileBuffer.toString('base64');
-      //const base64Data = file.toString('base64');
-      console.log("se convirtio bien", base64Data);
-      return base64Data;
-    } catch (error) {
-      throw new Error('Error al convertir la imagen a base64');
-    }
-  }*/
-
   // Verificar que ninguno de los datos sea nulo o indefinido
-  if (!email || !usuario || !cedula || !fechaNacimiento || !password) {
+  if (!email || !usuario || !cedula || !fechaNacimiento || !password) { // Se podria agregar lo de las foto
 
     console.error("Todos los campos son obligatorios");
     devolucion = "Todos los campos son obligatorios";
@@ -93,20 +75,27 @@ const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, passwo
       return devolucion;
     }
 
-    function imagenABase64(rutaImagen) {
-      // Lee la imagen desde el sistema de archivos
-      try {
-        const imagenData = fs.readFileSync(rutaImagen);
-
-        // Convierte la imagen a base64
-        const base64Data = imagenData.toString('base64');
-
-        return base64Data;
-      } catch (error) {
-        console.error('Error al leer la imagen:', error);
-        return null;
-      }
+    // Validar longitud mínima de contraseña (al menos 8 caracteres)
+    if (password.length < 8) {
+      console.log("La contraseña debe tener al menos 8 caracteres.");
+      devolucion = "La contraseña debe tener al menos 8 caracteres.";
+      return devolucion;
     }
+
+    // Verificar que contenga al menos un número
+    if (!/\d/.test(password)) {
+      console.log("La contraseña debe contener al menos un número.");
+      devolucion = "La contraseña debe contener al menos un número.";
+      return devolucion;
+    }
+
+    // Asegurarte de que contenga al menos una letra mayúscula
+    if (!/[A-Z]/.test(password)) {
+      console.log("La contraseña debe contener al menos una letra mayúscula.");
+      devolucion = "La contraseña debe contener al menos una letra mayúscula.";
+      return devolucion;
+    }
+
     // Ruta de la imagen en la carpeta "uploads"
     //const path = fotoCedula.path;
     const path = require('path');
@@ -140,9 +129,13 @@ const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, passwo
     const base64Image = await convertImageToBase64(imagePath);
     //console.log(base64Image);
 
+    
+    hashedPassword = await bcrypt.hash(password, 10);
+    console.log('Contraseña encriptada:', hashedPassword);
+    
 
     const insertQuery = 'INSERT INTO usuarios (mail_usuario, nombre_usuario, id_usuario, fecha_nacimiento, contraseña_usuario, foto) VALUES ($1, $2, $3, $4, $5, $6)';
-    pool.query(insertQuery, [email, usuario, cedula, fechaNacimiento, password, base64Image]);
+    pool.query(insertQuery, [email, usuario, cedula, fechaNacimiento, hashedPassword, base64Image]);
 
 
     console.log('Usuario registrado exitosamente.');

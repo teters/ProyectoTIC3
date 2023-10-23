@@ -17,6 +17,14 @@
     height: 350px;
     align-items:baseline;
 }
+.margins {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10%; /* Ancho de los márgenes laterales */
+    background: url('fondoL2.jpg') left left/cover no-repeat;
+    
+  }/*esto no esta andando*/
 
 .callToAction{
     margin-top: 20px;

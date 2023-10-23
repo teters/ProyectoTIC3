@@ -176,26 +176,28 @@ function SignUp() {
               
               <FormGroup className="mb-3" controlId="boton">
                 
-                <Button className="btn btn-link" onClick={handleShow}>
+                <button type="button" className="btn btn-link" onClick={handleShow}>
                   Terminos y condiciones
-                </Button>
+                </button>
               </FormGroup>
               
-              <Button variant="primary" type="submit" disabled={estado}>
-                Enviar
-              </Button>              
+              <FormGroup className="mb-3" controlId="">
+                <Button variant="primary" type="submit" disabled={estado}>
+                  Enviar
+                </Button>
+
+                <Link to="/">
+                  <button type="button" class="btn btn-link" >Volver</button>
+                </Link>
+
+                {mensajeRegistro && (
+                  <div class="alert alert-warning" role="alert">
+                  {mensajeRegistro.message}
+                  </div>
+                )}
+
+              </FormGroup>
               
-              
-              
-              <Link to="/">
-                <button type="button" class="btn btn-link" >Volver</button>
-                
-              </Link>
-              {mensajeRegistro && (
-                <div class="alert alert-warning" role="alert">
-                {mensajeRegistro.message}
-                </div>
-              )}
             </Form>
             
             

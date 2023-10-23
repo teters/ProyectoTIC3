@@ -78,11 +78,25 @@ app.post("/signup", upload.single("fotoCedula"), async (req, res) => {
   else if ( resultadoRegistro === "La cédula debe contener exactamente 8 dígitos."){
     return res.status(400).json({message:"La cédula debe contener exactamente 8 dígitos."});
   }
+  
+  else if(resultadoRegistro === "La contraseña debe tener al menos 8 caracteres."){
+    return res.status(400).json({message:"La contraseña debe tener al menos 8 caracteres."});
+  }
+
+  else if(resultadoRegistro === "La contraseña debe contener al menos un número."){
+    return res.status(400).json({message:"La contraseña debe contener al menos un número."});
+  }
+
+  else if(resultadoRegistro === "La contraseña debe contener al menos una letra mayúscula."){
+    return res.status(400).json({message:"La contraseña debe contener al menos una letra mayúscula."});
+  }
+
 
   else if (resultadoRegistro === "Debes tener al menos 18 años para registrarte."){
     //console.log("resultadoRegistro dentro de if:", resultadoRegistro);
     return res.status(400).json({message: "Debes tener al menos 18 años para registrarte."});
   }
+  
   
 });
 

@@ -1,0 +1,11 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg,  #04040e, #151582);
+    padding: 20px 20px 200px;
+    align-items: center;
+    border-radius: 10px;
+}
+.background{
+    background-image: url('fondoL2.jpg'); /* Ruta a tu imagen de edificios */
+}

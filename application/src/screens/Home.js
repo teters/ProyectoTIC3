@@ -88,7 +88,9 @@ const Home = () => {
   
 
   return (
+    
     <div className={styles.home}> 
+      
       <p>
         No lo dejes <b>estrellarse</b>! {time}
       </p>
@@ -110,6 +112,7 @@ const Home = () => {
         
 
     </div>
+    
   )
 }
 

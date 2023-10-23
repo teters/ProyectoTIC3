@@ -1,4 +1,5 @@
 const pool = require('../../db');
+const bcrypt = require('bcrypt');
 
 const getUsers = (req, res) => {
     pool.query("SELECT * FROM prueba.usuarios", (error, results)=>{
@@ -11,24 +12,26 @@ const getUsers = (req, res) => {
     })
 }
 //debe faltar algun awair
-const verificarMail = async (req) => {
+const verificarMail = async (email) => {
     console.log("entro a verificar mail");
-    const resultado = await new Promise((resolve, reject) => {
-        pool.query("SELECT COUNT(*) FROM usuarios WHERE mail_usuario = $1", [req], (error, results) => {
+   // const resultado = await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT COUNT(*) FROM usuarios WHERE mail_usuario = $1", [email], (error, results) => {
+            console.log(error);
             if (error) {
                 console.error("Error en la consulta", error);
                 reject("Error en la consulta");
             } else {
-                console.log("Resultado de verificarMail: ", results.rows);
+                console.log("Resultado de verificarMail en vM: ", results.rows);
                 resolve(results.rows);
             }
         }); 
     });
 
-    return resultado;
+    //return resultado;
 };
 
-const verificarMailContrasena = (email, password) => {
+/*const verificarMailContrasena = (email, password) => {
     return new Promise((resolve, reject) => {
         pool.query("SELECT * FROM usuarios WHERE mail_usuario = $1 AND contraseña_usuario = $2", [email, password], (error, results) => {
             if (error) {
@@ -41,13 +44,47 @@ const verificarMailContrasena = (email, password) => {
             }
         });
     });
+};*/
+
+const verificarMailContrasena = (email, password) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM usuarios WHERE mail_usuario = $1", [email], async (error, results) => {
+            if (error) {
+                console.error("Error en la consulta", error);
+                reject("Error en la consulta");
+            } else {
+                if (results.rows.length === 0) {
+                    resolve([]); // No se encontró el correo electrónico en la base de datos
+                    return;
+                }
+
+                const usuario = results.rows[0];
+                const hashedPassword = usuario.contraseña_usuario; // Obtén la contraseña encriptada de la base de datos
+
+                // Compara la contraseña proporcionada por el usuario con la contraseña encriptada almacenada en la base de datos
+                try {
+                    const contrasenaCorrecta = await bcrypt.compare(password, hashedPassword);
+
+                    if (contrasenaCorrecta) {
+                        resolve([usuario]); // La contraseña es correcta, devuelve el usuario
+                    } else {
+                        resolve([]); // La contraseña es incorrecta, no se encontró el usuario
+                    }
+                } catch (err) {
+                    console.error("Error al comparar contraseñas", err);
+                    reject("Error al comparar contraseñas");
+                }
+            }
+        });
+    });
 };
 
 
 const inicioDeSecion = async (email, password) => {
     try {
+        console.log(email);
         const existeMail = await verificarMail(email);
-        console.log("Resultado de verificarMail: ", existeMail);
+        console.log("Resultado de verificarMail: ", existeMail.rowsCount);
 
         if (existeMail.length === 0) {
             console.log("No tienes mail");
@@ -56,7 +93,7 @@ const inicioDeSecion = async (email, password) => {
             console.log("Existe la cuenta, ahora hay que verificar la contrasena");
 
             const existeCuenta = await verificarMailContrasena(email, password);
-
+            console.log(existeCuenta.length);
             if (existeCuenta.length === 0) {
                 console.log("La contraseña es incorrecta");
                 return "contraseña incorrecta";
