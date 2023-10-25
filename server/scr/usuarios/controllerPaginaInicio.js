@@ -1,22 +1,37 @@
 const pool = require('../../db');
 
-const modificarSaldo = async (email, saldo) => {
+const modificarSaldo = async (email, ganancia) => {
     //console.log("entro al busuqeda de datos y el saldo es:", saldo);
    // const resultado = await new Promise((resolve, reject) => {
    // Hago un request para llegar verificar el mail y ahi cambio los datos
     //return resultado;
-    try {
-        const query = 'UPDATE usuarios SET dinero_disponible = $1 WHERE mail_usuario = $2 RETURNING *';
-        const result = await pool.query(query, [saldo, email]);
-
-        // result.rows contiene los datos actualizados del usuario, puedes acceder a ellos según tu estructura de datos
-        console.log('Saldo actualizado:', result.rows[0].dinero_disponible);
     
-        return result.rows[0].dinero_disponible;
-      } catch (error) {
-        console.error('Error al modificar el saldo:', error);
-        throw error;
-      }
+    try {
+     // Primero, consulta el saldo actual en la base de datos
+     const consultaSaldoQuery = 'SELECT dinero_disponible FROM usuarios WHERE mail_usuario = $1';
+     const saldoActualResult = await pool.query(consultaSaldoQuery, [email]);
+ 
+     if (saldoActualResult.rows.length === 0) {
+       return { error: 'Correo electrónico no encontrado' };
+     }
+    gananciaTemp = parseInt(ganancia, 10);
+    let saldoActual = parseInt(saldoActualResult.rows[0].dinero_disponible, 10);
+    
+     //console.log("saldo actuael", saldoActual);
+     //console.log("la ganancia es", ganancia);
+     let saldoNuevo = ganancia + saldoActual;
+     //console.log("el nuevo saldo es", saldoNuevo);
+
+     // Luego, actualiza el saldo en la base de datos
+     const actualizarSaldoQuery = 'UPDATE usuarios SET dinero_disponible = $1 WHERE mail_usuario = $2';
+     await pool.query(actualizarSaldoQuery, [saldoNuevo, email]);
+ 
+     return { email, saldoNuevo };
+   } catch (error) {
+     console.error('Error al modificar el saldo:', error);
+     throw error;
+   }
+
 };
 
 module.exports={modificarSaldo};
