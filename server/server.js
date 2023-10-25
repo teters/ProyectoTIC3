@@ -58,8 +58,8 @@ app.get("/login/datos", async (req, res) => {
 
   try {
     const datos = await controller.buscarDatos(email);
-    //console.log(datos.nombre);
-    //console.log(datos.saldo);
+    console.log(datos.nombre);
+    console.log(datos.saldo);
     res.json(datos);
   } catch (error) {
     console.error("Error al buscar datos:", error);
@@ -67,13 +67,22 @@ app.get("/login/datos", async (req, res) => {
   }
 });
 
-app.post("/incio", async (req, res) => {
+/* app.post("/incio", async (req, res) => {
   console.log("entro al post de inicio");
   const email= req.body;
   console.log(email);
 
   controllerInicio.busquedaDatosU(email);
 
+});*/
+
+app.post("/inicio/saldo", async(req, res) => {
+  console.log("entro al inicio/saldo");
+  console.log(req.body);
+  
+
+  const nuevoSaldo = await controllerInicio.modificarSaldo(req.body.email, req.body.saldoNuevo);
+  return nuevoSaldo;
 });
 
 app.post("/signup", upload.single("fotoCedula"), async (req, res) => {
