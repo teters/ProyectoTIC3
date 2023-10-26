@@ -5,34 +5,57 @@ import { FaArrowAltCircleUp } from "react-icons/fa";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
 
+let nombreNuevo = localStorage.getItem("nombreUs");
+let saldo =  localStorage.getItem("saldoUs");
+let email =  localStorage.getItem("emailUs");
 
 var totalCycles = 50; // Número deseado de ciclos
 var currentCycle = 50;
-let multiplier = 1.0;
-let money = 10; 
+let multiplier;
+let money = saldo; 
+let idPartida = '';
 let outMultiplier = 0.0;
 let aApostar = 0;
 let apostado = 0; 
+let saldoTemp = 0;
 
-function Home  (props)  {
-  const {email, saldo, nombre} = props;
-  const [time, setTime] = useState(-70);
+
+function Home  ()  {
+ 
+  const [time, setTime] = useState(-100);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
+
+
   
-  
-
-
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      
+  useEffect ( () => {
+    
+    const interval = setInterval(async () => {
+      money = saldo;
       setTime(prevTime => prevTime + 1);
+
+      if (time === -90) { 
+        console.log("entro al -90");
+        const responseArranca = await fetch("/inicio/arranca", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+        console.log("Slaio del post");
+        let requestArranque = await responseArranca.json(); // capaz hay que definir en otro lado la REqest Arranque
+        console.log(requestArranque);
+        multiplier = requestArranque.multiplier;
+        console.log("el multiplier es", multiplier);
+      }
       
+    
+
       if (time === 1 && currentCycle === totalCycles){
-          if (! puedeApostar){
+          if (!puedeApostar){
             setPuedeRetirar(true);
           } else {
             setPuedeApostar(false);
@@ -52,7 +75,6 @@ function Home  (props)  {
         //setMultiplier(prevMultiplier => (prevMultiplier + 0.1).toFixed(1));
       
       }
-      
       // Cuando se alcanza el número total de ciclos, muestra "gameOver.png"
       if ( currentCycle === 0) {
         clearInterval(interval); // Detener el intervalo
@@ -79,22 +101,48 @@ function Home  (props)  {
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (puedeApostar && buttonText === "Apostar" && aApostar > 0) {
       apostado = aApostar;
       setButtonText("Retirar");
       setPuedeApostar(false);
       // Realiza acciones relacionadas con "Bet" aquí
+      if(time === 3){
+        // cambiar dinero pero restandole lo que perdio
+
+      }
     } else if (puedeRetirar && buttonText === "Retirar" ) {
       // Realiza acciones relacionadas con "Stop" aquí
       outMultiplier = multiplier;
+      
       // Cambia el texto del botón de vuelta a "Bet" cuando sea apropiado
-      setButtonText("Retirado en " +  {outMultiplier});
-    }
-  };
+      setButtonText("Retirado en " +  outMultiplier);
 
+      let saldoNuevo = outMultiplier * apostado;
+      let ganancia = saldoNuevo - apostado;
+      // ojo que no es el money es lo que apsoto, donde esta eso?
+      const response = await fetch("/inicio/saldo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, ganancia }),
+      });
+      const datos = await response.json();
+      saldoTemp = datos.saldoNuevo;
+
+      //money = saldo;// tengoq ue ver como actualizo los datos
+    }
+
+    money = saldoTemp;
+
+    // aca despues que jugo se deberia hacer un post a la Usuarios_jugada
+  };  
   
-  
+
+
+  // hay que ver que pasa si pierde, como me doy cuenta.
+
 
   return (
     
@@ -105,7 +153,8 @@ function Home  (props)  {
         No lo dejes <b>estrellarse</b>! {time}
       </p>
       <p> Dinero disponible : $ {money}</p>
-      <p>el mail es:{email}</p>
+      
+      <p>el mail es: {email}</p>
       <p>
         Multiplicador : X {multiplier}
       </p>

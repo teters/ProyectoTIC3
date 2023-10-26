@@ -68,6 +68,7 @@ function SignUp() {
     formData.append("password", password);
     //formData.append("file", fotoCedula);
     formData.append("fotoCedula", fotoCedula);
+    
     const response = await fetch("/signup", {
       method: "POST",
       body: formData
