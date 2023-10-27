@@ -19,23 +19,25 @@ let aApostar = 0;
 let apostado = 0; 
 let saldoTemp = 0;
 
-
 function Home  ()  {
- 
+  /*if(primeraJugada === 0){
+    saldoTemp = saldo;
+    primeraJugada = 1;
+  }*/
+
   const [time, setTime] = useState(-100);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
-
+  const [money2, setMoney2] = useState(0)
 
   
   useEffect ( () => {
     
     const interval = setInterval(async () => {
-      money = saldo;
       setTime(prevTime => prevTime + 1);
-
+      //money = saldoTemp;
       if (time === -90) { 
         console.log("entro al -90");
         const responseArranca = await fetch("/inicio/arranca", {
@@ -49,6 +51,10 @@ function Home  ()  {
         let requestArranque = await responseArranca.json(); // capaz hay que definir en otro lado la REqest Arranque
         console.log(requestArranque);
         multiplier = requestArranque.multiplier;
+        console.log("el saldo actual es", requestArranque.saldoActual);
+        setMoney2(requestArranque.saldoActual);
+        localStorage.setItem("saldoUs", requestArranque.saldoActual);
+        money = saldo;
         console.log("el multiplier es", multiplier);
       }
       
@@ -129,12 +135,20 @@ function Home  ()  {
         body: JSON.stringify({ email, ganancia }),
       });
       const datos = await response.json();
+      
       saldoTemp = datos.saldoNuevo;
+      //console.log("el saldo nuevo",datos.saldoNuevo);
+      //setMoney2(saldoTemp); 
+      console.log("el saldo temp es",saldoTemp);
+      localStorage.setItem("saldoUs", datos.saldoNuevo);
+      
+      console.log("el nuevo saldo es:", saldo);
+      
 
       //money = saldo;// tengoq ue ver como actualizo los datos
     }
-
-    money = saldoTemp;
+    
+    money = saldo;
 
     // aca despues que jugo se deberia hacer un post a la Usuarios_jugada
   };  
