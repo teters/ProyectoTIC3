@@ -5,30 +5,75 @@ import { FaArrowAltCircleUp } from "react-icons/fa";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
 
+let nombreNuevo = localStorage.getItem("nombreUs");
+let saldo =  localStorage.getItem("saldoUs");
+let email =  localStorage.getItem("emailUs");
 
 var totalCycles = 50; // Número deseado de ciclos
 var currentCycle = 50;
-let multiplier = 1.0;
-let money = 10; 
+let multiplier;
+let money = saldo; 
+let idPartida = '';
 let outMultiplier = 0.0;
 let aApostar = 0;
 let apostado = 0; 
+let saldoTemp = 0;
 
 function Home  ()  {
+<<<<<<< HEAD
   
   const [time, setTime] = useState(-70);
+=======
+  /*if(primeraJugada === 0){
+    saldoTemp = saldo;
+    primeraJugada = 1;
+  }*/
+
+  const [time, setTime] = useState(-100);
+>>>>>>> 32b0815ad9c2051c9dc5e40dde092946118381b1
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
+<<<<<<< HEAD
 
   useEffect(() => {
     const interval = setInterval(() => {
       
+=======
+  const [money2, setMoney2] = useState(0)
+
+  
+  useEffect ( () => {
+    
+    const interval = setInterval(async () => {
+>>>>>>> 32b0815ad9c2051c9dc5e40dde092946118381b1
       setTime(prevTime => prevTime + 1);
+      //money = saldoTemp;
+      if (time === -90) { 
+        console.log("entro al -90");
+        const responseArranca = await fetch("/inicio/arranca", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+        console.log("Slaio del post");
+        let requestArranque = await responseArranca.json(); // capaz hay que definir en otro lado la REqest Arranque
+        console.log(requestArranque);
+        multiplier = requestArranque.multiplier;
+        console.log("el saldo actual es", requestArranque.saldoActual);
+        setMoney2(requestArranque.saldoActual);
+        localStorage.setItem("saldoUs", requestArranque.saldoActual);
+        money = saldo;
+        console.log("el multiplier es", multiplier);
+      }
       
+    
+
       if (time === 1 && currentCycle === totalCycles){
-          if (! puedeApostar){
+          if (!puedeApostar){
             setPuedeRetirar(true);
           } else {
             setPuedeApostar(false);
@@ -48,7 +93,6 @@ function Home  ()  {
         //setMultiplier(prevMultiplier => (prevMultiplier + 0.1).toFixed(1));
       
       }
-      
       // Cuando se alcanza el número total de ciclos, muestra "gameOver.png"
       if ( currentCycle === 0) {
         clearInterval(interval); // Detener el intervalo
@@ -75,22 +119,56 @@ function Home  ()  {
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (puedeApostar && buttonText === "Apostar" && aApostar > 0) {
       apostado = aApostar;
       setButtonText("Retirar");
       setPuedeApostar(false);
       // Realiza acciones relacionadas con "Bet" aquí
+      if(time === 3){
+        // cambiar dinero pero restandole lo que perdio
+
+      }
     } else if (puedeRetirar && buttonText === "Retirar" ) {
       // Realiza acciones relacionadas con "Stop" aquí
       outMultiplier = multiplier;
+      
       // Cambia el texto del botón de vuelta a "Bet" cuando sea apropiado
-      setButtonText("Retirado en " +  {outMultiplier});
-    }
-  };
+      setButtonText("Retirado en " +  outMultiplier);
 
+      let saldoNuevo = outMultiplier * apostado;
+      let ganancia = saldoNuevo - apostado;
+      // ojo que no es el money es lo que apsoto, donde esta eso?
+      const response = await fetch("/inicio/saldo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, ganancia }),
+      });
+      const datos = await response.json();
+      
+      saldoTemp = datos.saldoNuevo;
+      //console.log("el saldo nuevo",datos.saldoNuevo);
+      //setMoney2(saldoTemp); 
+      console.log("el saldo temp es",saldoTemp);
+      localStorage.setItem("saldoUs", datos.saldoNuevo);
+      
+      console.log("el nuevo saldo es:", saldo);
+      
+
+      //money = saldo;// tengoq ue ver como actualizo los datos
+    }
+    
+    money = saldo;
+
+    // aca despues que jugo se deberia hacer un post a la Usuarios_jugada
+  };  
   
-  
+
+
+  // hay que ver que pasa si pierde, como me doy cuenta.
+
 
   return (
     
@@ -101,7 +179,12 @@ function Home  ()  {
         No lo dejes <b>estrellarse</b>! {time}
       </p>
       <p> Dinero disponible : $ {money}</p>
+<<<<<<< HEAD
       <p>el nombre es:</p>
+=======
+      
+      <p>el mail es: {email}</p>
+>>>>>>> 32b0815ad9c2051c9dc5e40dde092946118381b1
       <p>
         Multiplicador : X {multiplier}
       </p>

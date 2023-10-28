@@ -81,7 +81,9 @@ app.post("/inicio/saldo", async(req, res) => {
   console.log(req.body);
   
 
-  const nuevoSaldo = await controllerInicio.modificarSaldo(req.body.email, req.body.saldoNuevo);
+  const nuevoSaldo = await controllerInicio.modificarSaldo(req.body.email, req.body.ganancia);
+  console.log(nuevoSaldo);
+  console.log("el nuevosaldo es:", nuevoSaldo.saldoNuevo);
   return nuevoSaldo;
 });
 

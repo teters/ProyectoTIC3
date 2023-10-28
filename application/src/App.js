@@ -10,7 +10,7 @@ import MiPerfil from './screens/MiPerfil';
 import SobreNosotros from './screens/SobreNosotros';
 import Contacto from './screens/Contacto';
 import Navbar from './Components/Navbar';
-
+import * as ReactRouterDom from 'react-router-dom';
 
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
     
-    window.location.href = "/inicio";
+    //window.location.href = "/inicio";
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -59,11 +59,17 @@ function App() {
       });
 
       const datos = await datosResponse.json();
-      setNombre(datos.nombre);
-
       
-      setSaldo(datos.saldo);
-      localStorage.setItem("user",datos.nombre);
+      localStorage.setItem("nombreUs", datos.nombre);
+      localStorage.setItem("saldoUs", datos.saldo);
+      localStorage.setItem("emailUs", email);
+      
+      
+      //const datos = await datosResponse.json();
+      //console.log(datos);
+      console.log(datosResponse.body);
+     // setNombre(datos.nombre);
+    //  setSaldo(datos.saldo);
       window.location.href = "/inicio";
       // En data esta el mensaje
       // Procesa la respuesta del servidor si es exitosa

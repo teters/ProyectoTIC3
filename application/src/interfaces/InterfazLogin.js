@@ -10,7 +10,7 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
   return (
     <div className= 'login-background d-flex justify-content-center align-items-center 100-w vh-100 '>
       <div className='login-box p-5 rounded bg-white'>
-      <h1 class="text-left mb-4"> Log in</h1>
+      <h1 className="text-left mb-4"> Log in</h1>
         <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Correo electrónico</Form.Label>
@@ -42,17 +42,17 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
               </label>
           </div>
 
-          <Button variant="primary" class="btn btn-primary" type="submit">
+          <Button variant="primary" className="btn btn-primary" type="submit">
             Entrar
             
           </Button>
           <Link to="/signup">
-            <button type="button" class="btn btn-link" >Registrarse</button>
+            <button type="button" className="btn btn-link" >Registrarse</button>
             
           </Link>
           <div>
           {!inicio && (
-            <div class="alert alert-danger" role="alert">
+            <div className="alert alert-danger" role="alert">
             Datos invalidos!
             </div>
           )}
