@@ -3,13 +3,14 @@
     flex-direction: column;
     background: linear-gradient(180deg,#151582,#04040e);
     padding: 20px 20px 200px;
-    align-items: center;
+    align-items: left;
 }
 
 .home p {
-    padding: 30px;
+    padding: 15px;
     color: #f1f1f1;
     text-align: left;
+    font-family: roboto;
 }
 
 .pruebaImage{

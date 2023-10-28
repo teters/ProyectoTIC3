@@ -5,12 +5,12 @@ import SobreNosotros from './screens/SobreNosotros';
 import Contacto from './screens/Contacto';
 import Navbar from './Components/Navbar';
 
-function Inicio({email, nombre, saldo}) {
-
+function Inicio() {
+  
     return(
       <div className="App">
       <Navbar />
-      <Home email={email} nombre={nombre} saldo={saldo}/>
+      <Home />
       <MiPerfil />
       <SobreNosotros />
       <Contacto />

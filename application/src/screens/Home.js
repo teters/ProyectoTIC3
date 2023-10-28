@@ -14,17 +14,13 @@ let outMultiplier = 0.0;
 let aApostar = 0;
 let apostado = 0; 
 
-function Home  (props)  {
-  const {email, saldo, nombre} = props;
+function Home  ()  {
+  
   const [time, setTime] = useState(-70);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
-  
-  
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -105,7 +101,7 @@ function Home  (props)  {
         No lo dejes <b>estrellarse</b>! {time}
       </p>
       <p> Dinero disponible : $ {money}</p>
-      <p>el mail es:{email}</p>
+      <p>el nombre es:</p>
       <p>
         Multiplicador : X {multiplier}
       </p>
