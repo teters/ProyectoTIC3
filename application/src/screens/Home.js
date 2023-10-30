@@ -171,7 +171,7 @@ function Home  ()  {
 
   return (
     
-    <div className={styles.home}> 
+    <div name="Home" className={styles.home}> 
       
       <div className={styles.margins}></div>
       <p>
