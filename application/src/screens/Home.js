@@ -51,14 +51,14 @@ function Home  ()  {
         let requestArranque = await responseArranca.json(); // capaz hay que definir en otro lado la REqest Arranque
         console.log(requestArranque);
         multiplier = requestArranque.multiplier;
-        console.log("el saldo actual es", requestArranque.saldoActual);
+        // console.log("el saldo actual es", requestArranque.saldoActual);
         setMoney2(requestArranque.saldoActual);
         localStorage.setItem("saldoUs", requestArranque.saldoActual);
         money = saldo;
-        console.log("el multiplier es", multiplier);
+        // console.log("el multiplier es", multiplier);
+        idPartida = requestArranque.id;
       }
       
-    
 
       if (time === 1 && currentCycle === totalCycles){
           if (!puedeApostar){
@@ -143,10 +143,21 @@ function Home  ()  {
       localStorage.setItem("saldoUs", datos.saldoNuevo);
       
       console.log("el nuevo saldo es:", saldo);
-      
 
       //money = saldo;// tengoq ue ver como actualizo los datos
     }
+    const dineroRetirado = apostado * outMultiplier;
+
+    const responseJugada = await fetch("/inicio/jugada", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, idPartida, apostado, outMultiplier, dineroRetirado }),
+    });
+    const datosJugada = await responseJugada.json();
+    
+    
     
     money = saldo;
 

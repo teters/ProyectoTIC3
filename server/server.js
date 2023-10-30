@@ -75,17 +75,42 @@ app.get("/login/datos", async (req, res) => {
   controllerInicio.busquedaDatosU(email);
 
 });*/
+app.post("/inicio/arranca", async(req, res) => {
+  console.log("entro al inicio/arranca", req.body);
+  email = req.body.email;
+
+  const datosPartida = await controllerInicio.arrancaPartida(email);
+  console.log(datosPartida);
+  console.log("Los datos de la aprtida son", datosPartida);
+  console.log(datosPartida.email);
+  return res.status(200).json({email: datosPartida.email, id: datosPartida.id, multiplier: datosPartida.multiplier, saldoActual: datosPartida.saldoActual});
+});
 
 app.post("/inicio/saldo", async(req, res) => {
-  console.log("entro al inicio/saldo");
-  console.log(req.body);
+  //console.log("entro al inicio/saldo");
+  //console.log(req.body);
   
 
   const nuevoSaldo = await controllerInicio.modificarSaldo(req.body.email, req.body.ganancia);
   console.log(nuevoSaldo);
   console.log("el nuevosaldo es:", nuevoSaldo.saldoNuevo);
-  return nuevoSaldo;
+  return res.status(200).json({saldoNuevo: nuevoSaldo.saldoNuevo});
 });
+
+app.post("/inicio/jugada", async(req, res) => {
+  console.log("entro el inicio/jugada");
+  email = req.body.email;
+  idJugada= req.body.idPartido;
+  apostado = req.body.apostado;
+  mutliplicador = req.body.outMultiplier;
+  dineroGanado = req.body.dineroRetirado;
+  
+  console.log("la id de la jugada es", idJugada);
+
+  const nuevaJugada = await controllerInicio.cargarJugadaUsuario(email, idJugada, apostado, mutliplicador, dineroGanado );
+  console.log(nuevaJugada);
+});
+
 
 app.post("/signup", upload.single("fotoCedula"), async (req, res) => {
   //const {email, usuario, cedula, fechaNacimiento, password} = req.body;

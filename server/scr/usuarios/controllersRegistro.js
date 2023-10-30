@@ -134,8 +134,8 @@ const registrarUsuarios = async (email, usuario, cedula, fechaNacimiento, passwo
     console.log('Contraseña encriptada:', hashedPassword);
     
 
-    const insertQuery = 'INSERT INTO usuarios (mail_usuario, nombre_usuario, id_usuario, fecha_nacimiento, contraseña_usuario, foto) VALUES ($1, $2, $3, $4, $5, $6)';
-    pool.query(insertQuery, [email, usuario, cedula, fechaNacimiento, hashedPassword, base64Image]);
+    const insertQuery = 'INSERT INTO usuarios (mail_usuario, nombre_usuario, id_usuario, fecha_nacimiento, contraseña_usuario, foto, dinero_disponible) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    pool.query(insertQuery, [email, usuario, cedula, fechaNacimiento, hashedPassword, base64Image, 0]);
 
 
     console.log('Usuario registrado exitosamente.');
