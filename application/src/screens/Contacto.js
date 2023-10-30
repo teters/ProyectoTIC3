@@ -3,8 +3,8 @@ import styles from "./Contacto.module.css";
 
 const Contacto = () => {
   return (
-    <div className = {styles.home}>
-      <p class="h2">Contacto</p>
+    <div name="Contacto" className = {styles.home}>
+      <p class="h2"><u>Contacto</u></p>
       <p>
         riskyheights@ayuda.com</p>
       <p>+598 094028001</p>

@@ -3,7 +3,7 @@ import styles from "./SobreNosotros.module.css";
 
 const SobreNosotros = () => {
   return (
-    <div className= {styles.home}> 
+    <div name="SobreNosotros" className= {styles.home}> 
       <p className='h2'><u>Sobre Nosotros</u></p>
       <p>Somos una empresa dedicada al apasionante mundo de los juegos de apuestas en línea. 
         Nuestra misión es proporcionar a organizaciones de toda Latinoamérica una plataforma de juego segura, regulada y divertida 
