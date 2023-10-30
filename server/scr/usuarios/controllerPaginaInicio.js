@@ -39,6 +39,28 @@ const modificarSaldo = async (email, ganancia) => {
   }
 
 };
+const buscarMultiplicadores = async() =>{
+  try {
+    // Consulta los últimos 10 valores de la columna multiplicador
+    const consultaMultiplicadoresQuery = 'SELECT multiplicador, fecha  FROM jugada ORDER BY fecha desc , hora desc fetch first 10 rows only';
+
+  
+    // Ejecuta la consulta
+    const multiplicadoresResult = await pool.query(consultaMultiplicadoresQuery);
+  
+    // Obtén los valores de multiplicador de los resultados
+    const multiplicadores = await multiplicadoresResult.rows.map(row => row.multiplicador);
+    
+    
+    console.log('Últimos 10 valores de multiplicador:', multiplicadores);
+
+    return multiplicadores;
+
+  } catch (error) {
+    console.error('Error al obtener los últimos valores de multiplicador:', error);
+  }
+
+};
 
 const arrancaPartida = async (email) => {
 
@@ -119,4 +141,4 @@ const cargarJugadaUsuario = async (email, idJugada, apostado, mutliplicador, din
 
 // const
 
-module.exports = { modificarSaldo, arrancaPartida, cargarJugadaUsuario };
+module.exports = { modificarSaldo, arrancaPartida, cargarJugadaUsuario, buscarMultiplicadores };

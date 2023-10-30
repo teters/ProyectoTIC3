@@ -22,6 +22,8 @@ app.get("/api", (req,res) =>{
 })
 app.use(bodyParser.json());
 
+
+
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -58,31 +60,31 @@ app.get("/login/datos", async (req, res) => {
 
   try {
     const datos = await controller.buscarDatos(email);
-    console.log(datos.nombre);
-    console.log(datos.saldo);
+    // console.log(datos.nombre);
+    // console.log(datos.saldo);
     res.json(datos);
   } catch (error) {
     console.error("Error al buscar datos:", error);
     res.status(500).json({ error: "Error al buscar datos" });
   }
 });
+app.get("/inicio/multiplicadores", async (req, res) =>{
+  console.log("entro al multpilcaodre");
+  datosMult = await controllerInicio.buscarMultiplicadores();
+  console.log("los datos qeu volvieron son", datosMult);
+  //res.status(200).json
+  //return datosMult;
+  res.status(200).json(datosMult); 
+})
 
-/* app.post("/incio", async (req, res) => {
-  console.log("entro al post de inicio");
-  const email= req.body;
-  console.log(email);
-
-  controllerInicio.busquedaDatosU(email);
-
-});*/
 app.post("/inicio/arranca", async(req, res) => {
-  console.log("entro al inicio/arranca", req.body);
+  // console.log("entro al inicio/arranca", req.body);
   email = req.body.email;
 
   const datosPartida = await controllerInicio.arrancaPartida(email);
-  console.log(datosPartida);
-  console.log("Los datos de la aprtida son", datosPartida);
-  console.log(datosPartida.email);
+  // console.log(datosPartida);
+  // console.log("Los datos de la aprtida son", datosPartida);
+  // console.log(datosPartida.email);
   return res.status(200).json({email: datosPartida.email, id: datosPartida.id, multiplier: datosPartida.multiplier, saldoActual: datosPartida.saldoActual});
 });
 
@@ -98,15 +100,15 @@ app.post("/inicio/saldo", async(req, res) => {
 });
 
 app.post("/inicio/jugada", async(req, res) => {
-  console.log("entro el inicio/jugada");
-  console.log(req.body);
+  // console.log("entro el inicio/jugada");
+  // console.log(req.body);
   email = req.body.email;
   idJugada= req.body.idPartida;
   apostado = req.body.apostado;
   mutliplicador = req.body.outMultiplier;
   dineroGanado = req.body.dineroRetirado;
   
-  console.log("la id de la jugada es", idJugada);
+  // console.log("la id de la jugada es", idJugada);
 
   const nuevaJugada = await controllerInicio.cargarJugadaUsuario(email, idJugada, apostado, mutliplicador, dineroGanado );
   console.log(nuevaJugada);
