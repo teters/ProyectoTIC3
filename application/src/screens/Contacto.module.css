@@ -1,16 +1,16 @@
 .home {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(180deg,#151582,#04040e);
+    background: linear-gradient(180deg,#151582,#151582);
     padding: 20px 20px 200px;
     align-items: left;
+    
 }
 
 .home p {
     padding: 15px;
     color: #f1f1f1;
-    text-align: left;
-    font-family: roboto;
+    
 }
 
 .pruebaImage{
@@ -18,14 +18,6 @@
     height: 350px;
     align-items:baseline;
 }
-.margins {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 10%; /* Ancho de los márgenes laterales */
-    background: url('fondoL2.jpg') left left/cover no-repeat;
-    
-  }/*esto no esta andando*/
 
 .callToAction{
     margin-top: 20px;
