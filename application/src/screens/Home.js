@@ -20,34 +20,22 @@ let apostado = 0;
 let saldoTemp = 0;
 
 function Home  ()  {
-<<<<<<< HEAD
-  
-  const [time, setTime] = useState(-70);
-=======
   /*if(primeraJugada === 0){
     saldoTemp = saldo;
     primeraJugada = 1;
   }*/
 
   const [time, setTime] = useState(-100);
->>>>>>> 32b0815ad9c2051c9dc5e40dde092946118381b1
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
   // esto  no va const [multiplier, setMultiplier] = useState(1.0);
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
-<<<<<<< HEAD
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      
-=======
   const [money2, setMoney2] = useState(0)
 
   
   useEffect ( () => {
     
     const interval = setInterval(async () => {
->>>>>>> 32b0815ad9c2051c9dc5e40dde092946118381b1
       setTime(prevTime => prevTime + 1);
       //money = saldoTemp;
       if (time === -90) { 
@@ -179,12 +167,8 @@ function Home  ()  {
         No lo dejes <b>estrellarse</b>! {time}
       </p>
       <p> Dinero disponible : $ {money}</p>
-<<<<<<< HEAD
-      <p>el nombre es:</p>
-=======
       
       <p>el mail es: {email}</p>
->>>>>>> 32b0815ad9c2051c9dc5e40dde092946118381b1
       <p>
         Multiplicador : X {multiplier}
       </p>
