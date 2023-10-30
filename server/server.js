@@ -99,8 +99,9 @@ app.post("/inicio/saldo", async(req, res) => {
 
 app.post("/inicio/jugada", async(req, res) => {
   console.log("entro el inicio/jugada");
+  console.log(req.body);
   email = req.body.email;
-  idJugada= req.body.idPartido;
+  idJugada= req.body.idPartida;
   apostado = req.body.apostado;
   mutliplicador = req.body.outMultiplier;
   dineroGanado = req.body.dineroRetirado;
