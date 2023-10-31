@@ -19,11 +19,8 @@ let aApostar = 0;
 let apostado = 0; 
 let saldoTemp = 0;
 
-function Home  ()  {
-  /*if(primeraJugada === 0){
-    saldoTemp = saldo;
-    primeraJugada = 1;
-  }*/
+function Home()  {
+  
 
   const [time, setTime] = useState(-100);
   const [buttonText, setButtonText] = useState("Apostar"); // Inicialmente, el botón muestra "Bet"
@@ -31,12 +28,38 @@ function Home  ()  {
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
   const [money2, setMoney2] = useState(0)
+  const [multiplicadoresViejos, setMultplicadores] = useState(null);
+  var multi = [];
+  
+  const funcionBuscar = async() => {
+    const responseBuscarMultiplicadores =  await fetch("/inicio/multiplicadores", {
+      method: "GET",
+    });
+    setMultplicadores(await responseBuscarMultiplicadores.json());
+    //console.log("el multiplaer es", multiplicadoresViejos);
+    //multi = responseBuscarMultiplicadores.json();
+  }
+  
 
   
-  useEffect ( () => {
+
+  useEffect (() => {
+
     
+  
+    // para acceder a los multipcladroes viejos ahy qeu poner multiplicadores[0]  
     const interval = setInterval(async () => {
+      if(multiplicadoresViejos == null){
+        await funcionBuscar();
+        //console.log(multiplicadoresViejos);
+      }
+      console.log("el multiplaer es", multiplicadoresViejos);
+      //console.log(multiplicadoresViejos[0]);
+      //console.log("el valor 1", await multiplicadoresViejos[0]);
+      // Para que traer los multpilcadores hayq eu ahcerlo como arriba @FElipe
+
       setTime(prevTime => prevTime + 1);
+
       //money = saldoTemp;
       if (time === -90) { 
         console.log("entro al -90");
@@ -47,9 +70,9 @@ function Home  ()  {
           },
           body: JSON.stringify({ email }),
         });
-        console.log("Slaio del post");
+        //console.log("Slaio del post");
         let requestArranque = await responseArranca.json(); // capaz hay que definir en otro lado la REqest Arranque
-        console.log(requestArranque);
+        //console.log(requestArranque);
         multiplier = requestArranque.multiplier;
         // console.log("el saldo actual es", requestArranque.saldoActual);
         setMoney2(requestArranque.saldoActual);
@@ -57,6 +80,7 @@ function Home  ()  {
         money = saldo;
         // console.log("el multiplier es", multiplier);
         idPartida = requestArranque.id;
+        
       }
       
 
@@ -147,7 +171,7 @@ function Home  ()  {
       //money = saldo;// tengoq ue ver como actualizo los datos
     }
     const dineroRetirado = apostado * outMultiplier;
-
+    console.log(idPartida);
     const responseJugada = await fetch("/inicio/jugada", {
       method: "POST",
       headers: {
