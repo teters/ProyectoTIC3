@@ -40,17 +40,13 @@ function Home()  {
     //multi = responseBuscarMultiplicadores.json();
   }
   
-
   
-
-  useEffect (() => {
-
-    
+  useEffect (() => {  
   
     // para acceder a los multipcladroes viejos ahy qeu poner multiplicadores[0]  
     const interval = setInterval(async () => {
-      if(multiplicadoresViejos == null || time == -90){
-        await funcionBuscar();
+    if(multiplicadoresViejos == null || time == -90){
+      await funcionBuscar();
         //console.log(multiplicadoresViejos);
       }
       console.log("el multiplaier es", multiplicadoresViejos);

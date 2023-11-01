@@ -36,7 +36,7 @@ function App() {
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
     // Aquí puedes hacer lo que necesites con los valores de email y password, como enviarlos a un servidor o realizar validaciones.
     
-    window.location.href = "/inicio";
+    //window.location.href = "/inicio";
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -50,7 +50,7 @@ function App() {
     
     
     if (response.status === 200) {
-      
+      console.log("entor al response.status");
       const datosResponse = await fetch(`/login/datos?email=${email}`, {
         method: "GET",
         headers: {
@@ -63,7 +63,7 @@ function App() {
       localStorage.setItem("nombreUs", datos.nombre);
       localStorage.setItem("saldoUs", datos.saldo);
       localStorage.setItem("emailUs", email);
-      
+      localStorage.setItem("fechaNac", datos.fecha_nac);
       
       //const datos = await datosResponse.json();
       //console.log(datos);
