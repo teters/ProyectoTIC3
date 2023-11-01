@@ -60,8 +60,9 @@ app.get("/login/datos", async (req, res) => {
 
   try {
     const datos = await controller.buscarDatos(email);
-    // console.log(datos.nombre);
-    // console.log(datos.saldo);
+    console.log(datos.nombre);
+    console.log(datos.saldo);
+    console.log(datos.fechaNac);
     res.json(datos);
   } catch (error) {
     console.error("Error al buscar datos:", error);
@@ -69,9 +70,9 @@ app.get("/login/datos", async (req, res) => {
   }
 });
 app.get("/inicio/multiplicadores", async (req, res) =>{
-  console.log("entro al multpilcaodre");
+  //console.log("entro al multpilcaodre");
   datosMult = await controllerInicio.buscarMultiplicadores();
-  console.log("los datos qeu volvieron son", datosMult);
+  // console.log("los datos qeu volvieron son", datosMult);
   //res.status(200).json
   //return datosMult;
   res.status(200).json(datosMult); 
