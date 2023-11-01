@@ -16,7 +16,7 @@ const MiPerfil = () => {
 
   const cerrarSesion = () => {
     window.location.href = "/";
-    
+
   };
 
   return (
