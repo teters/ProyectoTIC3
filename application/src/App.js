@@ -59,10 +59,12 @@ function App() {
       });
 
       const datos = await datosResponse.json();
-      
+      console.log(datos);
       localStorage.setItem("nombreUs", datos.nombre);
       localStorage.setItem("saldoUs", datos.saldo);
+      localStorage.setItem("fechaNac", datos.fechaNac);
       localStorage.setItem("emailUs", email);
+      
       
       
       //const datos = await datosResponse.json();

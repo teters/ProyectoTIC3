@@ -113,17 +113,23 @@ const inicioDeSecion = async (email, password) => {
 const buscarDatos = async(email) => {
     
     const query = {
-        text: 'SELECT nombre_usuario, dinero_disponible FROM usuarios WHERE mail_usuario = $1',
+        text: 'SELECT nombre_usuario, dinero_disponible, fecha_nacimiento FROM usuarios WHERE mail_usuario = $1',
         values: [email],
       };
     
       
     const result = await pool.query(query);
     
-
+    console.log("el resuelt rows es", result.rows[0]);
     if (result.rows.length === 1) {
-        const { nombre_usuario, dinero_disponible } = result.rows[0];
-        return { nombre: nombre_usuario, saldo: dinero_disponible };
+       // console.log("Las rows son", result.rows[0]);
+        const { nombre_usuario, dinero_disponible, fecha_nacimiento} = result.rows[0];
+        
+        const fechaCompleta = fecha_nacimiento.toISOString();
+        //console.log(fechaCompleta);
+        const fecha = fechaCompleta.slice(0, 10);
+        console.log("la fecha es", fecha);
+        return { nombre: nombre_usuario, saldo: dinero_disponible, fechaNac: fecha  };
       } else {
         // El correo electrónico no se encontró en la base de datos
         return { error: 'Correo electrónico no encontrado' };
