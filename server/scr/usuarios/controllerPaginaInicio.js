@@ -94,7 +94,7 @@ const arrancaPartida = async (email) => {
 
   const consultaSaldoQuery = 'SELECT dinero_disponible FROM usuarios WHERE mail_usuario = $1';
   const saldoRequest = await pool.query(consultaSaldoQuery, [email]);
-  saldoActual = saldoRequest.rows[0].dinero_disponible
+  saldoActual = saldoRequest.rows[0].dinero_disponible;
   
 
   return { email, id, multiplier, saldoActual }
