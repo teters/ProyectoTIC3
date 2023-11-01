@@ -1,8 +1,8 @@
 .home {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(180deg,#151582,#151582);
-    padding: 20px 20px 200px;
+    background: linear-gradient(180deg,#151582,#04040e);
+    padding: 20px 20px 50px;
     align-items: left;
     
 }

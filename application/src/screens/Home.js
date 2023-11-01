@@ -28,7 +28,7 @@ function Home()  {
   const [puedeApostar, setPuedeApostar] = useState(true);
   const [puedeRetirar, setPuedeRetirar] = useState(false);
   const [money2, setMoney2] = useState(0)
-  const [multiplicadoresViejos, setMultplicadores] = useState(null);
+  const [multiplicadoresViejos, setMultplicadores] = useState(0);
   var multi = [];
   
   const funcionBuscar = async() => {
@@ -49,11 +49,11 @@ function Home()  {
   
     // para acceder a los multipcladroes viejos ahy qeu poner multiplicadores[0]  
     const interval = setInterval(async () => {
-      if(multiplicadoresViejos == null){
+      if(multiplicadoresViejos == null || time == -90){
         await funcionBuscar();
         //console.log(multiplicadoresViejos);
       }
-      console.log("el multiplaer es", multiplicadoresViejos);
+      console.log("el multiplaier es", multiplicadoresViejos);
       //console.log(multiplicadoresViejos[0]);
       //console.log("el valor 1", await multiplicadoresViejos[0]);
       // Para que traer los multpilcadores hayq eu ahcerlo como arriba @FElipe
@@ -89,9 +89,7 @@ function Home()  {
             setPuedeRetirar(true);
           } else {
             setPuedeApostar(false);
-          }
-          
-          
+          }          
         }
 
       // Cuando 'time' llega a 3, inicia un nuevo ciclo
@@ -124,7 +122,7 @@ function Home()  {
       if (time === 2) return require("../assets/game2.png");
       if (time === 3) return require("../assets/game3.png");
     } else {
-      if (time === 200){
+      if (time >= 100){
         window.location.reload();
       }
       return require("../assets/gameOver.png");
@@ -197,17 +195,31 @@ function Home()  {
     
     <div name="Home" className={styles.home}> 
       
-      <div className={styles.margins}></div>
+      <p> Hola {nombreNuevo} , tienes ${money} disponibles </p>
       <p>
         No lo dejes <b>estrellarse</b>! {time}
       </p>
-      <p> Dinero disponible : $ {money}</p>
-      
-      <p>el mail es: {email}</p>
       <p>
         Multiplicador : X {multiplier}
       </p>
         <img className={styles.pruebaImage} src={getImageSource()} alt={`Image ${time}`} />
+        <div className={styles.margins}>
+          <table class = "table table-dark table-bordered">
+            <thead>
+              <th> Últimos multiplicadores: </th>
+              <th>| {multiplicadoresViejos[0]} | </th>
+              <th>{multiplicadoresViejos[1]} | </th>
+              <th>{multiplicadoresViejos[2]} | </th>
+              <th>{multiplicadoresViejos[3]} | </th>
+              <th>{multiplicadoresViejos[4]} | </th>
+              <th>{multiplicadoresViejos[5]} | </th>
+              <th>{multiplicadoresViejos[6]} | </th>
+              <th>{multiplicadoresViejos[7]} | </th>
+              <th>{multiplicadoresViejos[8]} | </th>
+              <th>{multiplicadoresViejos[9]} |</th>
+            </thead>
+          </table>
+        </div>
 
         <p>
         Dinero : {aApostar} &nbsp; &nbsp; 
