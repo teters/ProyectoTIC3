@@ -16,6 +16,6 @@
 .margins{
     margin-top: 5px;
     align-items: center;
-    margin-left: 20px; /* Margen a la izquierda */
-    margin-right: 20px; /* Margen a la derecha */
+    margin-left: 5px; /* Margen a la izquierda */
+    margin-right: 5px; /* Margen a la derecha */
 }

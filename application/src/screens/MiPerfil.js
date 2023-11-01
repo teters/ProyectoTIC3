@@ -1,23 +1,12 @@
 import React from 'react';
 import styles from "./MiPerfil.module.css";
 
-//let nombre = "felipe";
-//let mail = "felipeMail";
-
-//let dineroDisponible = 500;
-
-let nombre = localStorage.getItem("nombreUs");
-let dineroDisponible =  localStorage.getItem("saldoUs");
-let mail =  localStorage.getItem("emailUs");
-let fechaNacimiento = localStorage.getItem("fechaNac")
+let nombre = "felipe";
+let mail = "felipeMail";
+let fechaNacimiento ="fechaNac";
+let dineroDisponible = 500;
 
 const MiPerfil = () => {
-
-  const handleCerrarSesion = async () => {
-    //localStorage.clear();
-    window.location.href = "/";
-  }
-
   return (
     <div name = "MiPerfil" className= {styles.home}>
     <p className='h2'><u>Mi Perfil</u></p>
@@ -80,7 +69,7 @@ const MiPerfil = () => {
       <div className={styles.margins} >
       <button type="button" class="btn btn-outline-warning">Cargar dinero con Mercado Pago</button>
       &nbsp; &nbsp; &nbsp; 
-      <button type="button" class="btn btn-outline-danger" onClick={handleCerrarSesion}>Cerrar sesión</button>
+      <button type="button" class="btn btn-outline-danger">Cerrar sesión</button>
       </div>
     </div>
 

@@ -64,7 +64,7 @@ const buscarMultiplicadores = async() =>{
 
 const arrancaPartida = async (email) => {
 
-  console.log("entro en arranca partida");
+  console.log("entro en arranca partida", email);
   const ahora = new Date();
   let id = uuidv4();
   const opcionesHora = { timeZone: 'America/Montevideo', hour12: false };
@@ -94,7 +94,7 @@ const arrancaPartida = async (email) => {
 
   const consultaSaldoQuery = 'SELECT dinero_disponible FROM usuarios WHERE mail_usuario = $1';
   const saldoRequest = await pool.query(consultaSaldoQuery, [email]);
-  saldoActual = saldoRequest.rows[0].dinero_disponible;
+  saldoActual = saldoRequest.rows[0].dinero_disponible
   
 
   return { email, id, multiplier, saldoActual }

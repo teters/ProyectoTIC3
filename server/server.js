@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
-
+  //console.log(email); ACA LLEGO BIEN EL FLUJO
   let resultadoInicioSecion = await controller.inicioDeSecion(email, password);
 
 
@@ -42,44 +42,39 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-/*app.post("/login/datos", async (req, res) => {
-  //console.log("entro al post");
-  const { email } = req.body;
-  const datos = await controller.buscarDatos(email);
-  //console.log("volvio del buscar datos");
-  console.log(datos);
-  return datos;
-});*/
 
 app.get("/login/datos", async (req, res) => {
   const email = req.query.email; // Obtiene el correo electrónico desde los parámetros de consulta
-
+  console.log(req);
+  console.log(email);
   if (!email) {
     return res.status(400).json({ error: "Correo electrónico no proporcionado" });
   }
 
   try {
     const datos = await controller.buscarDatos(email);
-    console.log(datos.nombre);
-    console.log(datos.saldo);
-    console.log(datos.fechaNac);
+    //console.log("los datos del buscar datos");
+    //console.log(datos.nombre);
+    //console.log(datos.saldo);
+    //console.log(datos.fecha_nac);
     res.json(datos);
   } catch (error) {
     console.error("Error al buscar datos:", error);
     res.status(500).json({ error: "Error al buscar datos" });
   }
 });
+
 app.get("/inicio/multiplicadores", async (req, res) =>{
-  //console.log("entro al multpilcaodre");
+  console.log("entro al multpilcaodre");
   datosMult = await controllerInicio.buscarMultiplicadores();
-  // console.log("los datos qeu volvieron son", datosMult);
+  console.log("los datos qeu volvieron son", datosMult);
   //res.status(200).json
   //return datosMult;
   res.status(200).json(datosMult); 
 })
 
 app.post("/inicio/arranca", async(req, res) => {
-  // console.log("entro al inicio/arranca", req.body);
+  console.log("entro al inicio/arranca", req.body);
   email = req.body.email;
 
   const datosPartida = await controllerInicio.arrancaPartida(email);
