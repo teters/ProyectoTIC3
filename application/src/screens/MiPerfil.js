@@ -3,12 +3,13 @@ import styles from "./MiPerfil.module.css";
 
 //let nombre = "felipe";
 //let mail = "felipeMail";
-let fechaNacimiento ="fechaNac";
+
 //let dineroDisponible = 500;
 
 let nombre = localStorage.getItem("nombreUs");
 let dineroDisponible =  localStorage.getItem("saldoUs");
 let mail =  localStorage.getItem("emailUs");
+let fechaNacimiento = localStorage.getItem("fechaNac")
 
 const MiPerfil = () => {
 
