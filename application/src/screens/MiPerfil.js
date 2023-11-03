@@ -41,43 +41,6 @@ const MiPerfil = () => {
       </tbody>  
     </table>
 
-    <div>
-    <p className='h6'><u>Historial de apuestas</u></p>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Fecha</th>
-            <th scope="col">Hora</th>
-            <th scope="col">Dinero apostado</th>
-            <th scope="col">Multiplicador de retiro</th>
-            <th scope="col">Dinero retirado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>fecha1</th>
-            <td>hora1</td>
-            <td>din1</td>
-            <td>mult1</td>
-            <td>dinret1</td>
-          </tr>
-          <tr>
-            <th>fecha1</th>
-            <td>hora1</td>
-            <td>din1</td>
-            <td>mult1</td>
-            <td>dinret1</td>
-          </tr>
-          <tr>
-            <th>fecha1</th>
-            <td>hora1</td>
-            <td>din1</td>
-            <td>mult1</td>
-            <td>dinret1</td>
-          </tr>
-        </tbody>
-  </table>
-    </div>
       <div className={styles.margins} >
       <button type="button" class="btn btn-outline-warning">Cargar dinero con Mercado Pago</button>
       &nbsp; &nbsp; &nbsp; 
@@ -88,4 +51,4 @@ const MiPerfil = () => {
   )
 }
 
-export default MiPerfil
+export default MiPerfil;

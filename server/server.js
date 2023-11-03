@@ -44,6 +44,7 @@ app.post("/api/login", async (req, res) => {
 
 
 app.get("/login/datos", async (req, res) => {
+ //console.log("el re qs", req);
   const email = req.query.email; // Obtiene el correo electrónico desde los parámetros de consulta
   console.log(req);
   console.log(email);
@@ -65,13 +66,25 @@ app.get("/login/datos", async (req, res) => {
 });
 
 app.get("/inicio/multiplicadores", async (req, res) =>{
-  console.log("entro al multpilcaodre");
+  //console.log("entro al multpilcaodre");
   datosMult = await controllerInicio.buscarMultiplicadores();
   console.log("los datos qeu volvieron son", datosMult);
   //res.status(200).json
   //return datosMult;
   res.status(200).json(datosMult); 
 })
+
+
+app.get("/inicio/historial", async (req, res) =>{
+  const email = req.query.email;
+  console.log("el maile es", email);
+  datosHistorial = await controllerInicio.buscarInfoMiPerfil(email);
+  console.log("los datos qeu volvieron sonde buscar mi perfila", datosHistorial);
+  //res.status(200).json
+  //return datosMult;
+  
+  res.status(200).json(datosHistorial); 
+});
 
 app.post("/inicio/arranca", async(req, res) => {
   console.log("entro al inicio/arranca", req.body);

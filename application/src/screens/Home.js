@@ -42,9 +42,12 @@ function Home()  {
   
   
   useEffect (() => {  
-  
+    const emailHistorial = email;
+    //console.log("el eamil es", emailHistorial);
     // para acceder a los multipcladroes viejos ahy qeu poner multiplicadores[0]  
     const interval = setInterval(async () => {
+    
+      
     if(multiplicadoresViejos == null || time == -90){
       await funcionBuscar();
         //console.log(multiplicadoresViejos);
@@ -54,8 +57,21 @@ function Home()  {
       //console.log("el valor 1", await multiplicadoresViejos[0]);
       // Para que traer los multpilcadores hayq eu ahcerlo como arriba @FElipe
 
+      // Voy a buscar el historial
+
+      const responseHistorial = await fetch(`/inicio/historial?email=${emailHistorial}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+  
+    const datosHistorial = await responseHistorial.json();
+    console.log("lod datos del hist", datosHistorial); // Aca esta la infromación que necesitas pandita querido 
+
       setTime(prevTime => prevTime + 1);
 
+      
       //money = saldoTemp;
       if (time === -90) { 
         console.log("entro al -90");
@@ -174,6 +190,8 @@ function Home()  {
       body: JSON.stringify({ email, idPartida, apostado, outMultiplier, dineroRetirado }),
     });
     const datosJugada = await responseJugada.json();
+    /*const primeraFilaJugda = datosJugada[0];
+    constfechaJugadaPrimeraF = primeraFilaJugda.fecha;*/
     
     
     
@@ -223,9 +241,46 @@ function Home()  {
         {(puedeApostar && aApostar > 0) ? (<FaArrowAltCircleDown color='#f1f1f1' size={25} onClick= {() => aApostar = aApostar - 1.0} />) : (<FaArrowAltCircleDown color='#f1f1f1' size={25} className={styles.buttonDisabled}  onClick= {() => aApostar = aApostar - 1.0} />)  }
         &nbsp; &nbsp; &nbsp; 
         {(puedeApostar && aApostar>money && aApostar > 0) ? <button className={styles.callToAction} onClick={handleButtonClick}>{buttonText}</button> : <button className={styles.callToAction} onClick={handleButtonClick}>{buttonText}</button>}
-        </p>  
-        
-        
+        </p>
+
+        <div>
+    <p className='h6'><u>Historial de apuestas</u></p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Dinero apostado</th>
+            <th scope="col">Multiplicador de retiro</th>
+            <th scope="col">Dinero retirado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>fecha1</th>
+            <td>hora1</td>
+            <td>din1</td>
+            <td>mult1</td>
+            <td>dinret1</td>
+          </tr>
+          <tr>
+            <th>fecha1</th>
+            <td>hora1</td>
+            <td>din1</td>
+            <td>mult1</td>
+            <td>dinret1</td>
+          </tr>
+          <tr>
+            <th>fecha1</th>
+            <td>hora1</td>
+            <td>din1</td>
+            <td>mult1</td>
+            <td>dinret1</td>
+          </tr>
+        </tbody>
+  </table>
+    </div>
+
         
 
     </div>

@@ -139,6 +139,46 @@ const cargarJugadaUsuario = async (email, idJugada, apostado, mutliplicador, din
 
 };
 
+const buscarInfoMiPerfil = async (email) => {
+  try {
+    // Consulta la información del perfil
+    const consultaInfoPerfilQuery = `
+      SELECT
+        u.dinero_disponible,
+        j.fecha,
+        j.hora,
+        j.multiplicador,
+        uj.dinero_apostado,
+        uj.multiplicador_retiro,
+        uj.dinero_retirado
+      FROM usuarios AS u
+      LEFT JOIN usuario_jugada AS uj ON u.mail_usuario = uj.email_usuario
+      LEFT JOIN jugada AS j ON uj.id_jugada = j.id
+      WHERE u.mail_usuario = $1
+    `;
+    console.log("hizo la query");
+    // Ejecuta la consulta con el correo electrónico como parámetro
+
+    const infoPerfilResult = await pool.query(consultaInfoPerfilQuery, [email]);
+    
+    
+    // Obtén los resultados de la consulta
+    const infoPerfil = infoPerfilResult.rows;
+    
+    if (infoPerfil.length > 0) {
+      console.log('Información del perfil:', infoPerfil);
+      return infoPerfil;
+    } else {
+      console.log('No se encontró información para el correo electrónico proporcionado.');
+      return null;
+    }
+
+  } catch (error) {
+    console.error('Error al obtener la información del perfil:', error);
+    throw error;
+  }
+};
+
 // const
 
-module.exports = { modificarSaldo, arrancaPartida, cargarJugadaUsuario, buscarMultiplicadores };
+module.exports = { modificarSaldo, arrancaPartida, cargarJugadaUsuario, buscarMultiplicadores, buscarInfoMiPerfil };
