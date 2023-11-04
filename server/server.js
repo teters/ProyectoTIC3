@@ -68,7 +68,7 @@ app.get("/login/datos", async (req, res) => {
 app.get("/inicio/multiplicadores", async (req, res) =>{
   //console.log("entro al multpilcaodre");
   datosMult = await controllerInicio.buscarMultiplicadores();
-  console.log("los datos qeu volvieron son", datosMult);
+  //console.log("los datos qeu volvieron son", datosMult);
   //res.status(200).json
   //return datosMult;
   res.status(200).json(datosMult); 
@@ -77,12 +77,13 @@ app.get("/inicio/multiplicadores", async (req, res) =>{
 
 app.get("/inicio/historial", async (req, res) =>{
   const email = req.query.email;
-  console.log("el maile es", email);
+  console.log("el mail es", email);
   datosHistorial = await controllerInicio.buscarInfoMiPerfil(email);
-  console.log("los datos qeu volvieron sonde buscar mi perfila", datosHistorial);
+  console.log("los datos historial son:", datosHistorial);
   //res.status(200).json
   //return datosMult;
   
+
   res.status(200).json(datosHistorial); 
 });
 
@@ -100,8 +101,6 @@ app.post("/inicio/arranca", async(req, res) => {
 app.post("/inicio/saldo", async(req, res) => {
   //console.log("entro al inicio/saldo");
   //console.log(req.body);
-  
-
   const nuevoSaldo = await controllerInicio.modificarSaldo(req.body.email, req.body.ganancia);
   console.log(nuevoSaldo);
   console.log("el nuevosaldo es:", nuevoSaldo.saldoNuevo);

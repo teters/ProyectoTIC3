@@ -52,7 +52,7 @@ const buscarMultiplicadores = async() =>{
     const multiplicadores = await multiplicadoresResult.rows.map(row => row.multiplicador);
     
     
-    console.log('Últimos 10 valores de multiplicador:', multiplicadores);
+    //console.log('Últimos 10 valores de multiplicador:', multiplicadores);
 
     return multiplicadores;
 
@@ -64,7 +64,7 @@ const buscarMultiplicadores = async() =>{
 
 const arrancaPartida = async (email) => {
 
-  console.log("entro en arranca partida", email);
+  //console.log("entro en arranca partida", email);
   const ahora = new Date();
   let id = uuidv4();
   const opcionesHora = { timeZone: 'America/Montevideo', hour12: false };
@@ -83,7 +83,7 @@ const arrancaPartida = async (email) => {
     // Ejecutar la consulta de inserción
     const result = await pool.query(insertQuery, [id, dia, hora, multiplier]);
 
-    console.log('Partida insertada:', result.rows[0]);
+    //console.log('Partida insertada:', result.rows[0]);
 
     // Aquí puedes devolver el multiplicador
 
@@ -155,6 +155,8 @@ const buscarInfoMiPerfil = async (email) => {
       LEFT JOIN usuario_jugada AS uj ON u.mail_usuario = uj.email_usuario
       LEFT JOIN jugada AS j ON uj.id_jugada = j.id
       WHERE u.mail_usuario = $1
+      ORDER BY fecha desc , hora desc
+      fetch first 10 rows only
     `;
     console.log("hizo la query");
     // Ejecuta la consulta con el correo electrónico como parámetro
@@ -166,7 +168,7 @@ const buscarInfoMiPerfil = async (email) => {
     const infoPerfil = infoPerfilResult.rows;
     
     if (infoPerfil.length > 0) {
-      console.log('Información del perfil:', infoPerfil);
+      //console.log('Información del perfil:', infoPerfil);
       return infoPerfil;
     } else {
       console.log('No se encontró información para el correo electrónico proporcionado.');
