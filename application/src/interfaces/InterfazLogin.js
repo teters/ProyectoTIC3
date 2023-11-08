@@ -10,7 +10,7 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
   return (
     <div className= 'login-background d-flex justify-content-center align-items-center 100-w vh-100 '>
       <div className='login-box p-5 rounded bg-white'>
-      <h1 className="text-left mb-4"> Log in</h1>
+      <h1 className="text-left mb-4"> Ingresar </h1>
         <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Correo electrónico</Form.Label>
@@ -38,7 +38,7 @@ function InterfazLogin({ email, password, onEmailChange, onPasswordChange, onSub
           <div className='mb-2'>
             <input type="checkbox" className='custom-control custom-checkbox' id="check"/>
               <label htmlFor="check" className='custom-input-label ms-2'>
-                Remember me
+                Recuerdame
               </label>
           </div>
 

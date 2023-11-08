@@ -314,7 +314,7 @@ function Home()  {
 
         <div>
     <p className='h6'><u> Mi historial de apuestas</u></p>
-    {(time > -190) && (
+    {(time > -190 && datosHistorial.length > 9) && (
       <table class="table table-striped">
         <thead>
           <tr>
