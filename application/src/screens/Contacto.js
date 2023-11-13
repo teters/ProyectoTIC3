@@ -6,7 +6,7 @@ const Contacto = () => {
     <div name="Contacto" className = {styles.home}>
       <p class="h2"><u>Contacto</u></p>
       <p>
-        riskyheights@ayuda.com</p>
+        ayuda@riskyheights.com</p>
       <p>+598 094028001</p>
     </div>
   )

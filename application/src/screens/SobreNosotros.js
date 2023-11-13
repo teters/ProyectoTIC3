@@ -6,7 +6,7 @@ const SobreNosotros = () => {
     <div name="SobreNosotros" className= {styles.home}> 
       <p className='h2'><u>Sobre Nosotros</u></p>
       <p>Somos una empresa dedicada al apasionante mundo de los juegos de apuestas en línea. 
-        Nuestra misión es proporcionar a organizaciones de toda Latinoamérica una plataforma de juego segura, regulada y divertida 
+        Nuestra misión es proporcionar a usuarios de toda Latinoamérica una plataforma de juego segura, regulada y divertida 
         . Creemos firmemente en la emoción 
         y el entretenimiento que los juegos de apuestas en línea pueden aportar a las personas, y trabajamos 
         incansablemente para asegugarnos de cumplir con todas las regulaciones y requisitos 
